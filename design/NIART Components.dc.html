@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+--ivory:#FBF8F3;--ink:#1A1613;--gold:#B08D57;--rose:#C9A9A0;--sage:#4A5A4C;
+--line:rgba(26,22,19,.14);--muted:rgba(26,22,19,.62);
+--serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+--sans:'Inter',system-ui,-apple-system,sans-serif;
+--ease:cubic-bezier(.22,.61,.36,1);
+--linen:repeating-linear-gradient(45deg,rgba(26,22,19,.05) 0 1px,transparent 1px 6px),repeating-linear-gradient(-45deg,rgba(26,22,19,.035) 0 1px,transparent 1px 7px),linear-gradient(150deg,#EFE8DC 0%,#E3D9C8 55%,#D8CDBA 100%);
+--linen-rose:repeating-linear-gradient(45deg,rgba(26,22,19,.05) 0 1px,transparent 1px 6px),repeating-linear-gradient(-45deg,rgba(26,22,19,.03) 0 1px,transparent 1px 7px),linear-gradient(150deg,#EDE0DA 0%,#DCC8C1 100%);
+--linen-sage:repeating-linear-gradient(45deg,rgba(26,22,19,.06) 0 1px,transparent 1px 6px),repeating-linear-gradient(-45deg,rgba(26,22,19,.03) 0 1px,transparent 1px 7px),linear-gradient(150deg,#DFE2D8 0%,#C6CDC0 100%);
+--linen-dark:repeating-linear-gradient(45deg,rgba(251,248,243,.055) 0 1px,transparent 1px 6px),repeating-linear-gradient(-45deg,rgba(251,248,243,.04) 0 1px,transparent 1px 7px),linear-gradient(150deg,#4A403A 0%,#2E2723 60%,#221D1A 100%);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ivory);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-wrap:pretty;overflow-x:hidden}
+a{color:inherit;text-decoration:none;transition:color .3s ease-out}
+a:hover{color:var(--gold)}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:5px}
+figure{margin:0}
+
+[data-r]{opacity:0;transform:translateY(20px);transition:opacity .75s var(--ease),transform .75s var(--ease);will-change:opacity,transform}
+[data-r].in{opacity:1;transform:none}
+
+[data-lines] .ln{display:block;overflow:hidden}
+[data-lines] .ln > span{display:block;transform:translateY(112%);transition:transform 1s var(--ease)}
+[data-lines].in .ln > span{transform:none}
+
+[data-mask]{overflow:hidden}
+[data-mask] .mi{clip-path:inset(100% 0 0 0);transform:scale(1.07);filter:blur(12px);transition:clip-path 1.2s var(--ease),transform 1.4s var(--ease),filter 1s ease-out}
+[data-mask].in .mi{clip-path:inset(0 0 0 0);transform:none;filter:none}
+
+[data-thread] [data-draw]{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.7s var(--ease) .25s}
+[data-thread].in [data-draw]{stroke-dashoffset:0}
+[data-thread] [data-node]{opacity:0;transition:opacity .6s ease-out 1.5s}
+[data-thread].in [data-node]{opacity:1}
+
+[data-zoom]{overflow:hidden}
+[data-zoom] .zi{transition:transform 1s var(--ease);will-change:transform}
+[data-zoom]:hover .zi,[data-zoom]:focus-within .zi{transform:scale(1.045)}
+
+[data-stage] [data-item]{transition:opacity .6s var(--ease),filter .6s var(--ease)}
+[data-stage]:hover [data-item]{opacity:.38;filter:saturate(.55)}
+[data-stage] [data-item]:hover,[data-stage] [data-item]:focus-within{opacity:1;filter:none;z-index:6}
+[data-item] .meta{opacity:0;transform:translateY(10px);transition:opacity .5s var(--ease),transform .55s var(--ease)}
+[data-item]:hover .meta,[data-item]:focus-within .meta{opacity:1;transform:none}
+[data-item] .glow{opacity:0;transition:opacity .6s ease-out}
+[data-item]:hover .glow,[data-item]:focus-within .glow{opacity:1}
+@keyframes shimmer{0%{transform:translateY(-100%)}100%{transform:translateY(200%)}}
+[data-item]:hover .glow .band{animation:shimmer 2.6s linear infinite}
+
+[data-lab]{opacity:0;transform:translateY(8px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+[data-lab].on{opacity:1;transform:none}
+[data-lab] .tick{transform:scaleX(0);transform-origin:left center;transition:transform .7s var(--ease) .12s}
+[data-lab].on .tick{transform:scaleX(1)}
+
+[data-slide] .cl{opacity:0;transform:translateY(16px);transition:opacity .65s var(--ease),transform .75s var(--ease)}
+[data-slide].live .cl{opacity:1;transform:none}
+[data-dot]{position:relative;background:none;border:none;padding:8px 4px;font-size:11px;letter-spacing:.14em;color:rgba(245,240,232,.64);transition:color .4s ease-out}
+[data-dot][aria-current="true"]{color:#F5F0E8}
+[data-dot]:hover{color:var(--gold)}
+
+[data-mag]{transition:transform .45s var(--ease),background .45s ease-out,color .45s ease-out,border-color .45s ease-out;will-change:transform}
+[data-arrow] .ar{display:inline-block;transition:transform .45s var(--ease)}
+[data-arrow]:hover .ar{transform:translateX(7px)}
+[data-underline]{background-image:linear-gradient(currentColor,currentColor);background-size:100% 1px;background-repeat:no-repeat;background-position:0 100%;transition:background-size .45s var(--ease)}
+[data-underline]:hover{background-size:0% 1px}
+
+@keyframes fadeIn{from{opacity:0}to{opacity:var(--to,1)}}
+@keyframes kb{from{transform:scale(1.06)}to{transform:scale(1)}}
+
+@media(max-width:1024px){
+[data-c1]{grid-template-columns:1fr!important;gap:40px!important}
+[data-c1-h]{width:100%!important;margin-right:0!important}
+[data-c1-img]{aspect-ratio:16/11!important;width:100%;max-height:none!important}
+[data-c1]{padding-top:108px!important;padding-bottom:64px!important}
+[data-c4-grid]{grid-template-columns:1fr!important;min-height:auto!important;padding-top:96px!important;padding-bottom:112px!important}
+}
+@media(max-width:900px){
+[data-stage]{position:static!important;height:auto!important;aspect-ratio:auto!important;display:grid!important;grid-template-columns:1fr 1fr;gap:12px}
+[data-stage] [data-item]{position:static!important;width:auto!important;transform:none!important;opacity:1!important;filter:none!important}
+[data-stage] [data-item][data-wide]{grid-column:span 2}
+[data-stage] [data-bigword]{display:none!important}
+[data-item] .meta{opacity:1!important;transform:none!important}
+[data-c3]{height:auto!important}
+[data-c3-stage]{height:auto!important;min-height:76svh!important;position:static!important;padding:104px 0!important}
+[data-c3-labels]{display:none!important}
+[data-c3-list]{display:grid!important}
+[data-c5-final]{padding:80px 20px!important}
+}
+@media(max-width:760px){
+[data-sec]{padding-top:76px!important;padding-bottom:76px!important}
+[data-shell]{padding-left:20px!important;padding-right:20px!important}
+[data-c1]{padding-top:96px!important}
+[data-c1-img]{aspect-ratio:4/5!important}
+[data-c4-stage]{min-height:auto!important}
+[data-c4-img]{height:52vh!important}
+[data-c4-index]{font-size:44px!important}
+[data-c2-head]{flex-direction:column!important;align-items:flex-start!important;gap:18px!important}
+}
+@media(max-width:430px){
+[data-stage]{grid-template-columns:1fr!important}
+[data-stage] [data-item][data-wide]{grid-column:auto}
+}
+@media(prefers-reduced-motion:reduce){
+*{animation:none!important;transition:none!important}
+[data-r]{opacity:1!important;transform:none!important}
+[data-lines] .ln > span{transform:none!important}
+[data-mask] .mi{clip-path:none!important;transform:none!important;filter:none!important}
+[data-thread] [data-draw]{stroke-dashoffset:0!important}
+[data-thread] [data-node]{opacity:1!important}
+[data-lab]{opacity:1!important;transform:none!important}
+[data-lab] .tick{transform:scaleX(1)!important}
+[data-slide] .cl{opacity:1!important;transform:none!important}
+}
+</style>
+</helmet>
+<div ref="{{ rootRef }}" style="background:var(--ivory)">
+
+<section data-c1-sec aria-labelledby="c1-h" ref="{{ heroRef }}" style="position:relative;min-height:100svh;background:var(--ink);color:#F5F0E8;overflow:hidden;display:flex;align-items:center">
+  <div aria-hidden="true" style="position:absolute;inset:0;background:var(--linen-dark);opacity:0;--to:.5;animation:fadeIn 1.4s ease-out .15s both"></div>
+  <div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(120% 90% at 72% 40%,rgba(176,141,87,.14),transparent 60%)"></div>
+  <svg data-thread ref="{{ threadRef }}" aria-hidden="true" viewBox="0 0 1440 140" preserveAspectRatio="none" style="position:absolute;left:0;top:46%;width:100%;height:140px;z-index:4;pointer-events:none;transition:transform .5s var(--ease)">
+    <path data-draw pathLength="1" d="M0 88 C 240 88 320 34 540 52 C 780 72 900 112 1130 68 C 1300 34 1380 62 1440 54" fill="none" stroke="var(--gold)" stroke-width="1.1" opacity=".85"></path>
+    <circle data-node cx="540" cy="52" r="2.6" fill="var(--gold)"></circle>
+    <circle data-node cx="1130" cy="68" r="2.6" fill="var(--gold)"></circle>
+  </svg>
+
+  <div data-c1 data-shell style="position:relative;z-index:5;width:100%;max-width:1440px;margin:0 auto;padding:132px clamp(20px,5vw,88px) 84px;display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:clamp(28px,4vw,72px)">
+    <div style="position:relative;z-index:6">
+      <p data-r style="margin:0;display:flex;align-items:center;gap:14px;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)">
+        <span style="display:inline-block;width:38px;height:1px;background:var(--gold)"></span>Zardozi · Piece No. 01
+      </p>
+      <h1 id="c1-h" data-c1-h data-lines style="margin:26px 0 0;width:132%;font-family:var(--serif);font-weight:300;font-size:clamp(46px,7.4vw,132px);line-height:.94;letter-spacing:-.02em">
+        <span class="ln"><span style="transition-delay:.25s">Stitched</span></span>
+        <span class="ln"><span style="transition-delay:.36s;font-style:italic;color:var(--gold)">into</span></span>
+        <span class="ln"><span style="transition-delay:.47s">existence.</span></span>
+      </h1>
+      <p data-r style="margin:34px 0 0;max-width:40ch;font-size:16.5px;line-height:1.8;color:rgba(245,240,232,.66);transition-delay:.85s">Six hundred hours on the adda frame. Gold metal thread couched onto raw Kanchipuram silk, one knot at a time, by four hands that have done nothing else for eleven years.</p>
+      <div data-r style="display:flex;flex-wrap:wrap;align-items:center;gap:28px;margin-top:44px;transition-delay:1.02s">
+        <a data-mag data-arrow href="#c4" style="display:inline-flex;align-items:center;gap:12px;background:var(--gold);color:#1A1613;padding:18px 34px;font-size:12px;letter-spacing:.16em;text-transform:uppercase" style-hover="background:#F5F0E8">See the piece <span class="ar" aria-hidden="true">&rarr;</span></a>
+        <a data-underline href="#c3" style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding-bottom:3px">How it is made</a>
+      </div>
+    </div>
+
+    <figure data-c1-img data-mask data-zoom data-r style="position:relative;aspect-ratio:3/4;background:#0F0D0B;transition-delay:.1s">
+      <span class="mi" style="position:absolute;inset:0">
+        <span class="zi" role="img" aria-label="Bridal lehenga panel on the adda frame, gold zardozi worked in window light" style="position:absolute;inset:0;background:var(--linen);animation:kb 7s var(--ease) both"></span>
+      </span>
+      <figcaption style="position:absolute;left:20px;bottom:18px;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.05em;color:rgba(26,22,19,.55)">image — zardozi panel on the frame</figcaption>
+    </figure>
+  </div>
+
+  <p data-r aria-hidden="true" style="position:absolute;right:clamp(20px,5vw,88px);bottom:34px;margin:0;z-index:6;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(245,240,232,.4);transition-delay:1.2s">Scroll</p>
+</section>
+
+<section id="c2" data-sec aria-labelledby="c2-h" style="position:relative;padding:132px 0 120px;overflow:hidden">
+  <div data-shell style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,5vw,88px)">
+    <div data-c2-head data-r style="display:flex;align-items:flex-end;justify-content:space-between;gap:36px;margin-bottom:clamp(36px,5vw,72px)">
+      <h2 id="c2-h" style="margin:0;font-family:var(--serif);font-weight:300;font-size:clamp(34px,4.6vw,68px);line-height:1.02;letter-spacing:-.015em;max-width:16ch">The pieces on the floor this month</h2>
+      <p style="margin:0;max-width:34ch;font-size:14.5px;line-height:1.75;color:var(--muted)">Four in progress, photographed where they hang. Hover a piece to read its file.</p>
+    </div>
+
+    <div data-stage style="position:relative;width:100%;aspect-ratio:16/11;max-height:920px">
+      <span data-bigword data-parx="150" aria-hidden="true" style="position:absolute;left:-4%;top:5%;z-index:0;font-family:var(--serif);font-size:clamp(80px,15.5vw,250px);line-height:.8;letter-spacing:-.02em;color:rgba(26,22,19,.075);white-space:nowrap;will-change:transform">ZARDOZI</span>
+
+      <article data-item data-wide data-par="-34" data-scale="1" style="position:absolute;left:6%;top:7%;width:39%;z-index:3;will-change:transform">
+        <a data-zoom href="#" aria-label="Kanmani bridal lehenga, in progress" style="position:relative;display:block;aspect-ratio:3/4;background:var(--ink)">
+          <span class="zi" role="img" aria-label="Maroon bridal lehenga with gold zardozi border on a mannequin" style="position:absolute;inset:0;background:var(--linen)"></span>
+          <span class="glow" aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(176,141,87,.65)"><span class="band" style="position:absolute;left:0;right:0;top:0;height:34%;background:linear-gradient(to bottom,transparent,rgba(176,141,87,.24),transparent)"></span></span>
+        </a>
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-top:16px">
+          <div>
+            <h3 style="margin:0;font-family:var(--serif);font-size:clamp(22px,2.2vw,32px);font-weight:400;line-height:1.15">Kanmani Bridal Lehenga</h3>
+            <p class="meta" style="margin:8px 0 0;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Zardozi &amp; kamdani · 620 hrs · raw silk</p>
+          </div>
+          <span style="flex:none;font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--gold);padding-top:6px">01</span>
+        </div>
+      </article>
+
+      <article data-item data-par="52" style="position:absolute;left:62%;top:2%;width:27%;z-index:2;will-change:transform">
+        <a data-zoom href="#" aria-label="Suriya festive kurta set, in progress" style="position:relative;display:block;aspect-ratio:4/5;background:var(--ink)">
+          <span class="zi" role="img" aria-label="Rose festive kurta set with fine threadwork along the placket" style="position:absolute;inset:0;background:var(--linen-rose)"></span>
+          <span class="glow" aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(176,141,87,.65)"><span class="band" style="position:absolute;left:0;right:0;top:0;height:34%;background:linear-gradient(to bottom,transparent,rgba(176,141,87,.24),transparent)"></span></span>
+        </a>
+        <h3 style="margin:14px 0 0;font-family:var(--serif);font-size:clamp(19px,1.6vw,24px);font-weight:400">Suriya Kurta Set</h3>
+        <p class="meta" style="margin:7px 0 0;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Resham threadwork · 90 hrs</p>
+      </article>
+
+      <article data-item data-wide data-par="-16" style="position:absolute;left:41%;top:47%;width:31%;z-index:4;will-change:transform">
+        <a data-zoom href="#" aria-label="Nilaa aari blouse, in progress" style="position:relative;display:block;aspect-ratio:16/11;background:var(--ink)">
+          <span class="zi" role="img" aria-label="Ivory silk blouse sleeve with dense aari threadwork" style="position:absolute;inset:0;background:var(--linen-sage)"></span>
+          <span class="glow" aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(176,141,87,.65)"><span class="band" style="position:absolute;left:0;right:0;top:0;height:34%;background:linear-gradient(to bottom,transparent,rgba(176,141,87,.24),transparent)"></span></span>
+        </a>
+        <h3 style="margin:14px 0 0;font-family:var(--serif);font-size:clamp(19px,1.6vw,24px);font-weight:400">Nilaa Aari Blouse</h3>
+        <p class="meta" style="margin:7px 0 0;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Hooked needle · 46 hrs</p>
+      </article>
+
+      <article data-item data-par="76" style="position:absolute;left:72%;top:30%;width:24%;z-index:2;will-change:transform">
+        <a data-zoom href="#" aria-label="Kamdani dupatta, in progress" style="position:relative;display:block;aspect-ratio:3/4;background:var(--ink)">
+          <span class="zi" role="img" aria-label="Sheer dupatta with scattered silver kamdani dots" style="position:absolute;inset:0;background:var(--linen)"></span>
+          <span class="glow" aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(176,141,87,.65)"><span class="band" style="position:absolute;left:0;right:0;top:0;height:34%;background:linear-gradient(to bottom,transparent,rgba(176,141,87,.24),transparent)"></span></span>
+        </a>
+        <h3 style="margin:14px 0 0;font-family:var(--serif);font-size:clamp(19px,1.6vw,24px);font-weight:400">Kamdani Dupatta</h3>
+        <p class="meta" style="margin:7px 0 0;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Silver badla · 38 hrs</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="c3" data-c3 ref="{{ craftRef }}" aria-labelledby="c3-h" style="position:relative;height:340vh;background:var(--ink);color:#F5F0E8">
+  <div data-c3-stage style="position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center;justify-content:center">
+    <span ref="{{ craftImgRef }}" role="img" aria-label="Macro photograph of gold zardozi knots on maroon silk, individual threads visible" style="position:absolute;inset:0;background:var(--linen);transform:scale(2.5);transform-origin:52% 44%;will-change:transform"></span>
+    <span aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,22,19,.82) 0%,rgba(26,22,19,.18) 46%,rgba(26,22,19,.5) 100%)"></span>
+
+    <div data-c3-labels aria-hidden="true" style="position:absolute;inset:0">
+      <span data-lab data-at=".16" style="position:absolute;left:12%;top:26%;display:flex;align-items:center;gap:12px">
+        <span class="tick" style="display:block;width:56px;height:1px;background:var(--gold)"></span>
+        <span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase">Thread</span>
+      </span>
+      <span data-lab data-at=".26" style="position:absolute;left:66%;top:20%;display:flex;align-items:center;gap:12px">
+        <span class="tick" style="display:block;width:44px;height:1px;background:var(--gold)"></span>
+        <span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase">Stitch</span>
+      </span>
+      <span data-lab data-at=".36" style="position:absolute;left:20%;top:62%;display:flex;align-items:center;gap:12px">
+        <span class="tick" style="display:block;width:64px;height:1px;background:var(--gold)"></span>
+        <span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase">Pattern</span>
+      </span>
+      <span data-lab data-at=".46" style="position:absolute;left:73%;top:57%;display:flex;align-items:center;gap:12px">
+        <span class="tick" style="display:block;width:40px;height:1px;background:var(--gold)"></span>
+        <span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase">Fabric</span>
+      </span>
+      <span data-lab data-at=".56" style="position:absolute;left:47%;top:12%;display:flex;align-items:center;gap:12px">
+        <span class="tick" style="display:block;width:48px;height:1px;background:var(--gold)"></span>
+        <span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase">Technique</span>
+      </span>
+    </div>
+
+    <div data-shell style="position:relative;z-index:3;width:100%;max-width:1440px;margin:0 auto;padding:0 clamp(20px,5vw,88px)">
+      <p ref="{{ craftEyebrowRef }}" data-lab style="margin:0 0 22px;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)">The detail file</p>
+      <h2 id="c3-h" ref="{{ craftHeadRef }}" data-lines style="margin:0;font-family:var(--serif);font-weight:300;font-size:clamp(40px,8.6vw,150px);line-height:.92;letter-spacing:-.02em;max-width:14ch">
+        <span class="ln"><span>Detail is</span></span>
+        <span class="ln"><span style="transition-delay:.1s;font-style:italic">the design.</span></span>
+      </h2>
+      <div ref="{{ craftCopyRef }}" data-lab style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(20px,3vw,56px);max-width:900px;margin-top:clamp(24px,3vw,44px)">
+        <p style="margin:0;font-size:15.5px;line-height:1.8;color:rgba(245,240,232,.7)">A zardozi knot is 1.2mm across. There are roughly forty thousand of them on a Niart bridal hem, and every one is pulled to the same tension by hand.</p>
+        <p style="margin:0;font-size:15.5px;line-height:1.8;color:rgba(245,240,232,.7)">Machines can copy the pattern. They cannot copy the tension, and that is what you see from across a room.</p>
+      </div>
+    </div>
+  </div>
+
+  <div data-c3-list data-shell style="display:none;padding:0 20px 80px;grid-template-columns:1fr 1fr;gap:14px">
+    <span style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)">Thread</span>
+    <span style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)">Stitch</span>
+    <span style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)">Pattern</span>
+    <span style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)">Fabric</span>
+    <span style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)">Technique</span>
+  </div>
+</section>
+
+<section id="c4" data-c4-stage ref="{{ carRef }}" aria-labelledby="c4-h" tabindex="0" role="region" aria-roledescription="carousel" style="position:relative;min-height:100svh;background:#151210;color:#F5F0E8;overflow:hidden;transition:background .9s var(--ease);touch-action:pan-y;cursor:grab">
+  <h2 id="c4-h" style="position:absolute;left:-9999px">Signature pieces</h2>
+  <div style="position:relative;display:grid;align-items:stretch">
+
+    <article data-slide="0" class="live" data-bg="#151210" style="grid-area:1/1;opacity:1;z-index:2;transition:opacity .6s var(--ease)">
+      <div data-c4-grid style="min-height:100svh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(24px,4vw,64px);max-width:1440px;margin:0 auto;padding:110px clamp(20px,5vw,88px) 128px">
+        <div class="scopy" style="will-change:transform">
+          <p class="cl" data-c4-index style="margin:0;font-family:var(--serif);font-size:clamp(44px,6vw,86px);line-height:1;color:rgba(245,240,232,.22)">01</p>
+          <h3 class="cl" style="margin:14px 0 0;font-family:var(--serif);font-weight:300;font-size:clamp(32px,4.4vw,66px);line-height:1.02;letter-spacing:-.015em;transition-delay:.08s">Anaikatti Bridal Lehenga</h3>
+          <dl class="cl" style="margin:34px 0 0;display:grid;grid-template-columns:auto 1fr;column-gap:28px;row-gap:12px;font-size:13.5px;transition-delay:.16s">
+            <dt style="letter-spacing:.14em;text-transform:uppercase;color:rgba(245,240,232,.66);font-size:11px;align-self:center">Collection</dt><dd style="margin:0">Niart Signature</dd>
+            <dt style="letter-spacing:.14em;text-transform:uppercase;color:rgba(245,240,232,.66);font-size:11px;align-self:center">Material</dt><dd style="margin:0">Raw Kanchipuram silk · gold zardozi</dd>
+            <sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><dt style="letter-spacing:.14em;text-transform:uppercase;color:rgba(245,240,232,.66);font-size:11px;align-self:center">From</dt><dd style="margin:0">₹1,45,000</dd></sc-if>
+          </dl>
+          <a class="cl" data-mag data-arrow href="#" style="display:inline-flex;align-items:center;gap:12px;margin-top:40px;border:1px solid rgba(245,240,232,.3);padding:16px 30px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;transition-delay:.24s" style-hover="background:#F5F0E8;color:#1A1613;border-color:#F5F0E8">Enquire <span class="ar" aria-hidden="true">&rarr;</span></a>
+        </div>
+        <figure data-c4-img class="simg" style="position:relative;height:min(74vh,660px);overflow:hidden;background:#0F0D0B;will-change:transform,clip-path">
+          <span role="img" aria-label="Deep maroon bridal lehenga with a wide hand-worked gold zardozi hem" style="position:absolute;inset:0;background:var(--linen)"></span>
+        </figure>
+      </div>
+    </article>
+
+    <article data-slide="1" data-bg="#1B1614" style="grid-area:1/1;opacity:0;z-index:1;pointer-events:none;transition:opacity .6s var(--ease)">
+      <div data-c4-grid style="min-height:100svh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(24px,4vw,64px);max-width:1440px;margin:0 auto;padding:110px clamp(20px,5vw,88px) 128px">
+        <div class="scopy" style="will-change:transform">
+          <p class="cl" data-c4-index style="margin:0;font-family:var(--serif);font-size:clamp(44px,6vw,86px);line-height:1;color:rgba(245,240,232,.22)">02</p>
+          <h3 class="cl" style="margin:14px 0 0;font-family:var(--serif);font-weight:300;font-size:clamp(32px,4.4vw,66px);line-height:1.02;letter-spacing:-.015em;transition-delay:.08s">Chinnalampatti Silk Saree</h3>
+          <dl class="cl" style="margin:34px 0 0;display:grid;grid-template-columns:auto 1fr;column-gap:28px;row-gap:12px;font-size:13.5px;transition-delay:.16s">
+            <dt style="letter-spacing:.14em;text-transform:uppercase;color:rgba(245,240,232,.66);font-size:11px;align-self:center">Collection</dt><dd style="margin:0">Suriya</dd>
+            <dt style="letter-spacing:.14em;text-transform:uppercase;color:rgba(245,240,232,.66);font-size:11px;align-self:center">Material</dt><dd style="margin:0">Mulberry silk · aari border</dd>
+            <sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><dt style="letter-spacing:.14em;text-transform:uppercase;color:rgba(245,240,232,.66);font-size:11px;align-self:center">From</dt><dd style="margin:0">₹38,000</dd></sc-if>
+          </dl>
+          <a class="cl" data-mag data-arrow href="#" style="display:inline-flex;align-items:center;gap:12px;margin-top:40px;border:1px solid rgba(245,240,232,.3);padding:16px 30px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;transition-delay:.24s" style-hover="background:#F5F0E8;color:#1A1613;border-color:#F5F0E8">Enquire <span class="ar" aria-hidden="true">&rarr;</span></a>
+        </div>
+        <figure data-c4-img class="simg" style="position:relative;height:min(74vh,660px);overflow:hidden;background:#0F0D0B;will-change:transform,clip-path">
+          <span role="img" aria-label="Rose silk saree with an aari-worked border in gold thread" style="position:absolute;inset:0;background:var(--linen-rose)"></span>
+        </figure>
+      </div>
+    </article>
+
+    <article data-slide="2" data-bg="#141712" style="grid-area:1/1;opacity:0;z-index:1;pointer-events:none;transition:opacity .6s var(--ease)">
+      <div data-c4-grid style="min-height:100svh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(24px,4vw,64px);max-width:1440px;margin:0 auto;padding:110px clamp(20px,5vw,88px) 128px">
+        <div class="scopy" style="will-change:transform">
+          <p class="cl" data-c4-index style="margin:0;font-family:var(--serif);font-size:clamp(44px,6vw,86px);line-height:1;color:rgba(245,240,232,.22)">03</p>
+          <h3 class="cl" style="margin:14px 0 0;font-family:var(--serif);font-weight:300;font-size:clamp(32px,4.4vw,66px);line-height:1.02;letter-spacing:-.015em;transition-delay:.08s">Ivory Zardozi Blouse</h3>
+          <dl class="cl" style="margin:34px 0 0;display:grid;grid-template-columns:auto 1fr;column-gap:28px;row-gap:12px;font-size:13.5px;transition-delay:.16s">
+            <dt style="letter-spacing:.14em;text-transform:uppercase;color:rgba(245,240,232,.66);font-size:11px;align-self:center">Collection</dt><dd style="margin:0">Nilaa</dd>
+            <dt style="letter-spacing:.14em;text-transform:uppercase;color:rgba(245,240,232,.66);font-size:11px;align-self:center">Material</dt><dd style="margin:0">Ivory dupion · dense zardozi sleeves</dd>
+            <sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><dt style="letter-spacing:.14em;text-transform:uppercase;color:rgba(245,240,232,.66);font-size:11px;align-self:center">From</dt><dd style="margin:0">₹22,000</dd></sc-if>
+          </dl>
+          <a class="cl" data-mag data-arrow href="#" style="display:inline-flex;align-items:center;gap:12px;margin-top:40px;border:1px solid rgba(245,240,232,.3);padding:16px 30px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;transition-delay:.24s" style-hover="background:#F5F0E8;color:#1A1613;border-color:#F5F0E8">Enquire <span class="ar" aria-hidden="true">&rarr;</span></a>
+        </div>
+        <figure data-c4-img class="simg" style="position:relative;height:min(74vh,660px);overflow:hidden;background:#0F0D0B;will-change:transform,clip-path">
+          <span role="img" aria-label="Ivory silk blouse with dense gold zardozi across both sleeves" style="position:absolute;inset:0;background:var(--linen-sage)"></span>
+        </figure>
+      </div>
+    </article>
+
+    <article data-slide="3" data-bg="#1C1615" style="grid-area:1/1;opacity:0;z-index:1;pointer-events:none;transition:opacity .6s var(--ease)">
+      <div data-c4-grid style="min-height:100svh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(24px,4vw,64px);max-width:1440px;margin:0 auto;padding:110px clamp(20px,5vw,88px) 128px">
+        <div class="scopy" style="will-change:transform">
+          <p class="cl" data-c4-index style="margin:0;font-family:var(--serif);font-size:clamp(44px,6vw,86px);line-height:1;color:rgba(245,240,232,.22)">04</p>
+          <h3 class="cl" style="margin:14px 0 0;font-family:var(--serif);font-weight:300;font-size:clamp(32px,4.4vw,66px);line-height:1.02;letter-spacing:-.015em;transition-delay:.08s">Rose Threadwork Kurta Set</h3>
+          <dl class="cl" style="margin:34px 0 0;display:grid;grid-template-columns:auto 1fr;column-gap:28px;row-gap:12px;font-size:13.5px;transition-delay:.16s">
+            <dt style="letter-spacing:.14em;text-transform:uppercase;color:rgba(245,240,232,.66);font-size:11px;align-self:center">Collection</dt><dd style="margin:0">Suriya</dd>
+            <dt style="letter-spacing:.14em;text-transform:uppercase;color:rgba(245,240,232,.66);font-size:11px;align-self:center">Material</dt><dd style="margin:0">Chanderi cotton silk · resham floss</dd>
+            <sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><dt style="letter-spacing:.14em;text-transform:uppercase;color:rgba(245,240,232,.66);font-size:11px;align-self:center">From</dt><dd style="margin:0">₹16,500</dd></sc-if>
+          </dl>
+          <a class="cl" data-mag data-arrow href="#" style="display:inline-flex;align-items:center;gap:12px;margin-top:40px;border:1px solid rgba(245,240,232,.3);padding:16px 30px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;transition-delay:.24s" style-hover="background:#F5F0E8;color:#1A1613;border-color:#F5F0E8">Enquire <span class="ar" aria-hidden="true">&rarr;</span></a>
+        </div>
+        <figure data-c4-img class="simg" style="position:relative;height:min(74vh,660px);overflow:hidden;background:#0F0D0B;will-change:transform,clip-path">
+          <span role="img" aria-label="Rose kurta set with fine threadwork along the placket and cuffs" style="position:absolute;inset:0;background:var(--linen-rose)"></span>
+        </figure>
+      </div>
+    </article>
+
+    <article data-slide="4" data-bg="#171513" style="grid-area:1/1;opacity:0;z-index:1;pointer-events:none;transition:opacity .6s var(--ease)">
+      <div data-c4-grid style="min-height:100svh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(24px,4vw,64px);max-width:1440px;margin:0 auto;padding:110px clamp(20px,5vw,88px) 128px">
+        <div class="scopy" style="will-change:transform">
+          <p class="cl" data-c4-index style="margin:0;font-family:var(--serif);font-size:clamp(44px,6vw,86px);line-height:1;color:rgba(245,240,232,.22)">05</p>
+          <h3 class="cl" style="margin:14px 0 0;font-family:var(--serif);font-weight:300;font-size:clamp(32px,4.4vw,66px);line-height:1.02;letter-spacing:-.015em;transition-delay:.08s">Kamdani Silver Dupatta</h3>
+          <dl class="cl" style="margin:34px 0 0;display:grid;grid-template-columns:auto 1fr;column-gap:28px;row-gap:12px;font-size:13.5px;transition-delay:.16s">
+            <dt style="letter-spacing:.14em;text-transform:uppercase;color:rgba(245,240,232,.66);font-size:11px;align-self:center">Collection</dt><dd style="margin:0">Niart Signature</dd>
+            <dt style="letter-spacing:.14em;text-transform:uppercase;color:rgba(245,240,232,.66);font-size:11px;align-self:center">Material</dt><dd style="margin:0">Sheer organza · silver badla</dd>
+            <sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><dt style="letter-spacing:.14em;text-transform:uppercase;color:rgba(245,240,232,.66);font-size:11px;align-self:center">From</dt><dd style="margin:0">₹14,000</dd></sc-if>
+          </dl>
+          <a class="cl" data-mag data-arrow href="#" style="display:inline-flex;align-items:center;gap:12px;margin-top:40px;border:1px solid rgba(245,240,232,.3);padding:16px 30px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;transition-delay:.24s" style-hover="background:#F5F0E8;color:#1A1613;border-color:#F5F0E8">Enquire <span class="ar" aria-hidden="true">&rarr;</span></a>
+        </div>
+        <figure data-c4-img class="simg" style="position:relative;height:min(74vh,660px);overflow:hidden;background:#0F0D0B;will-change:transform,clip-path">
+          <span role="img" aria-label="Sheer organza dupatta scattered with silver kamdani dots" style="position:absolute;inset:0;background:var(--linen)"></span>
+        </figure>
+      </div>
+    </article>
+  </div>
+
+  <div style="position:absolute;left:0;right:0;bottom:0;z-index:8;max-width:1440px;margin:0 auto;padding:0 clamp(20px,5vw,88px) 34px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:16px">
+      <span aria-hidden="true" style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.1em;color:rgba(245,240,232,.5)">NIART SIGNATURE</span>
+      <span aria-hidden="true" style="position:relative;display:block;width:clamp(90px,16vw,220px);height:1px;background:rgba(245,240,232,.2)">
+        <span ref="{{ progRef }}" style="position:absolute;inset:0;background:var(--gold);transform-origin:left center;transform:scaleX(.2);transition:transform .7s var(--ease)"></span>
+      </span>
+      <span ref="{{ counterRef }}" role="status" style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.1em;color:rgba(245,240,232,.75)">01 / 05</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <button data-dot type="button" aria-current="true" aria-label="Show piece 1, Anaikatti Bridal Lehenga" onClick="{{ go0 }}">01</button>
+      <button data-dot type="button" aria-current="false" aria-label="Show piece 2, Chinnalampatti Silk Saree" onClick="{{ go1 }}">02</button>
+      <button data-dot type="button" aria-current="false" aria-label="Show piece 3, Ivory Zardozi Blouse" onClick="{{ go2 }}">03</button>
+      <button data-dot type="button" aria-current="false" aria-label="Show piece 4, Rose Threadwork Kurta Set" onClick="{{ go3 }}">04</button>
+      <button data-dot type="button" aria-current="false" aria-label="Show piece 5, Kamdani Silver Dupatta" onClick="{{ go4 }}">05</button>
+      <span aria-hidden="true" style="margin-left:12px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,240,232,.62)">Drag or arrow keys</span>
+    </div>
+  </div>
+</section>
+
+<section id="c5" ref="{{ wallRef }}" aria-labelledby="c5-h" style="position:relative;padding:120px 0 0;overflow:hidden">
+  <div data-shell style="max-width:1440px;margin:0 auto 56px;padding:0 clamp(20px,5vw,88px)">
+    <h2 id="c5-h" data-r style="margin:0;font-family:var(--serif);font-weight:300;font-size:clamp(30px,3.6vw,52px);line-height:1.05;max-width:20ch">Every piece in the collection, as it hangs in the studio</h2>
+  </div>
+
+  <div data-stage data-shell style="position:relative;height:190vh;max-width:1440px;margin:0 auto;padding:0 clamp(20px,5vw,88px)">
+    <span data-bigword data-parx="-180" aria-hidden="true" style="position:absolute;left:0;top:34%;z-index:0;font-family:var(--serif);font-size:clamp(70px,14vw,220px);line-height:.8;color:rgba(26,22,19,.06);white-space:nowrap;will-change:transform">COLLECTION · NIART · COLLECTION</span>
+
+    <figure data-item data-wide data-par="-60" data-ox="-70" style="position:absolute;left:2%;top:1%;width:33%;z-index:3;will-change:transform">
+      <span data-zoom style="position:relative;display:block;aspect-ratio:3/4;background:var(--ink)"><span class="zi" role="img" aria-label="Bridal lehenga hanging against a lime-washed wall" style="position:absolute;inset:0;background:var(--linen)"></span></span>
+      <figcaption class="meta" style="margin-top:12px;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Kanmani · Bridal</figcaption>
+    </figure>
+
+    <figure data-item data-par="46" data-ox="80" style="position:absolute;left:56%;top:6%;width:26%;z-index:2;will-change:transform">
+      <span data-zoom style="position:relative;display:block;aspect-ratio:4/5;background:var(--ink)"><span class="zi" role="img" aria-label="Rose kurta set folded on a wooden table" style="position:absolute;inset:0;background:var(--linen-rose)"></span></span>
+      <figcaption class="meta" style="margin-top:12px;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Suriya · Festive</figcaption>
+    </figure>
+
+    <figure data-item data-par="-30" data-ox="90" data-oy="-40" style="position:absolute;left:70%;top:28%;width:23%;z-index:4;will-change:transform">
+      <span data-zoom style="position:relative;display:block;aspect-ratio:3/4;background:var(--ink)"><span class="zi" role="img" aria-label="Ivory aari blouse on a hanger" style="position:absolute;inset:0;background:var(--linen-sage)"></span></span>
+      <figcaption class="meta" style="margin-top:12px;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Nilaa · Blouses</figcaption>
+    </figure>
+
+    <figure data-item data-wide data-par="66" data-ox="-90" style="position:absolute;left:14%;top:40%;width:30%;z-index:2;will-change:transform">
+      <span data-zoom style="position:relative;display:block;aspect-ratio:16/11;background:var(--ink)"><span class="zi" role="img" aria-label="Close crop of a zardozi hem in progress" style="position:absolute;inset:0;background:var(--linen)"></span></span>
+      <figcaption class="meta" style="margin-top:12px;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Detail · Zardozi hem</figcaption>
+    </figure>
+
+    <figure data-item data-par="-52" data-ox="60" data-oy="30" style="position:absolute;left:50%;top:57%;width:22%;z-index:3;will-change:transform">
+      <span data-zoom style="position:relative;display:block;aspect-ratio:4/5;background:var(--ink)"><span class="zi" role="img" aria-label="Sheer kamdani dupatta held to the light" style="position:absolute;inset:0;background:var(--linen-rose)"></span></span>
+      <figcaption class="meta" style="margin-top:12px;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Kamdani · Dupatta</figcaption>
+    </figure>
+
+    <figure data-item data-wide data-par="34" data-ox="-60" data-oy="20" style="position:absolute;left:4%;top:61%;width:28%;z-index:2;will-change:transform">
+      <span data-zoom style="position:relative;display:block;aspect-ratio:3/4;background:var(--ink)"><span class="zi" role="img" aria-label="Saree draped over a studio rail" style="position:absolute;inset:0;background:var(--linen-sage)"></span></span>
+      <figcaption class="meta" style="margin-top:12px;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Chinnalampatti · Saree</figcaption>
+    </figure>
+
+    <svg aria-hidden="true" data-thread ref="{{ wallThreadRef }}" viewBox="0 0 1000 1400" preserveAspectRatio="none" style="position:absolute;left:0;top:0;width:100%;height:100%;z-index:1;pointer-events:none">
+      <path data-draw pathLength="1" d="M180 240 C 420 300 520 180 760 420 C 900 560 520 700 380 900 C 280 1040 640 1100 820 1240" fill="none" stroke="var(--gold)" stroke-width="1" opacity=".5"></path>
+    </svg>
+  </div>
+
+  <div data-c5-final ref="{{ finalRef }}" style="position:relative;z-index:5;text-align:center;padding:clamp(80px,12vw,150px) clamp(20px,5vw,88px) clamp(90px,10vw,140px);background:var(--ivory)">
+    <span data-r aria-hidden="true" style="display:block;width:1px;height:clamp(48px,7vw,90px);background:var(--gold);margin:0 auto 40px"></span>
+    <p data-lines ref="{{ finalHeadRef }}" style="margin:0;font-family:var(--serif);font-weight:300;font-size:clamp(42px,9vw,160px);line-height:.94;letter-spacing:-.025em">
+      <span class="ln"><span>Wear the</span></span>
+      <span class="ln"><span style="transition-delay:.12s;font-style:italic;color:var(--gold)">detail.</span></span>
+    </p>
+    <div data-r ref="{{ finalCtaRef }}" style="margin-top:clamp(36px,5vw,64px)">
+      <a data-mag data-arrow href="#c2" style="display:inline-flex;align-items:center;gap:14px;background:var(--ink);color:var(--ivory);padding:20px 40px;font-size:12px;letter-spacing:.18em;text-transform:uppercase" style-hover="background:var(--gold);color:#1A1613">Explore the collection <span class="ar" aria-hidden="true">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1100},&quot;showPrices&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;parallax&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Motion&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#B08D57&quot;,&quot;options&quot;:[&quot;#B08D57&quot;,&quot;#C9A9A0&quot;,&quot;#4A5A4C&quot;,&quot;#8C6E4A&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Theme&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.rootRef = React.createRef();
+    this.heroRef = React.createRef();
+    this.threadRef = React.createRef();
+    this.craftRef = React.createRef();
+    this.craftImgRef = React.createRef();
+    this.craftHeadRef = React.createRef();
+    this.craftEyebrowRef = React.createRef();
+    this.craftCopyRef = React.createRef();
+    this.carRef = React.createRef();
+    this.progRef = React.createRef();
+    this.counterRef = React.createRef();
+    this.wallRef = React.createRef();
+    this.wallThreadRef = React.createRef();
+    this.finalRef = React.createRef();
+    this.finalHeadRef = React.createRef();
+    this.finalCtaRef = React.createRef();
+    this.i = 0;
+    this.ticking = false;
+  }
+
+  componentDidMount(){
+    this.applyAccent();
+    const root = this.rootRef.current;
+    if(!root) return;
+    this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ---- reveals -------------------------------------------------------
+    const revealTargets = root.querySelectorAll('[data-r],[data-lines],[data-mask],[data-thread]');
+    if('IntersectionObserver' in window){
+      this.io = new IntersectionObserver((es)=>{
+        es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); this.io.unobserve(e.target); } });
+      },{rootMargin:'0px 0px -8% 0px',threshold:.06});
+      revealTargets.forEach(el=>this.io.observe(el));
+    } else {
+      revealTargets.forEach(el=>el.classList.add('in'));
+    }
+    this.failsafe = setTimeout(()=>{
+      const r = this.rootRef.current; if(!r) return;
+      if(!r.querySelector('[data-r].in')) revealTargets.forEach(el=>el.classList.add('in'));
+    }, 1100);
+
+    // ---- scroll motion (cached geometry, transform only) ---------------
+    this.parEls = Array.from(root.querySelectorAll('[data-par],[data-parx],[data-scale]'));
+    this.cache = () => {
+      const y = window.scrollY;
+      this.mobile = window.innerWidth < 900;
+      this.parEls.forEach(el=>{
+        const r = el.getBoundingClientRect();
+        el.__t = r.top + y; el.__h = r.height;
+      });
+      const c = this.craftRef.current;
+      if(c){ const r = c.getBoundingClientRect(); this.craftT = r.top + y; this.craftH = r.height; }
+      const w = this.wallRef.current;
+      if(w){ const r = w.getBoundingClientRect(); this.wallT = r.top + y; this.wallH = r.height; }
+    };
+    this.cache();
+
+    this.update = () => {
+      this.ticking = false;
+      const y = window.scrollY, vh = window.innerHeight;
+      if(!this.mobile && this.props.parallax !== false && !this.reduced){
+        this.parEls.forEach(el=>{
+          const p = Math.max(0, Math.min(1, (y + vh - el.__t) / (vh + el.__h)));
+          const c = (p - .5) * 2;
+          let t = '';
+          const sy = parseFloat(el.dataset.par || 0);
+          const sx = parseFloat(el.dataset.parx || 0);
+          if(sx) t += 'translate3d(' + (-c * sx).toFixed(1) + 'px,0,0) ';
+          else if(sy) t += 'translate3d(0,' + (c * sy).toFixed(1) + 'px,0) ';
+          if(el.dataset.scale) t += 'scale(' + (0.92 + 0.08 * Math.min(1, p * 1.6)).toFixed(3) + ') ';
+          if(this.wallH && (el.dataset.ox || el.dataset.oy)){
+            const wp = Math.max(0, Math.min(1, (y + vh - this.wallT) / this.wallH));
+            const f = Math.max(0, (wp - .72) / .28);
+            if(f > 0){
+              const ox = parseFloat(el.dataset.ox || 0) * f, oy = parseFloat(el.dataset.oy || 0) * f;
+              t += 'translate3d(' + ox.toFixed(1) + 'px,' + oy.toFixed(1) + 'px,0) ';
+            }
+          }
+          el.style.transform = t;
+        });
+      }
+      // craft story: macro -> full design
+      if(this.craftH && !this.mobile && this.craftH - vh > 80){
+        const p = Math.max(0, Math.min(1, (y - this.craftT) / (this.craftH - vh)));
+        const img = this.craftImgRef.current;
+        if(img && !this.reduced) img.style.transform = 'scale(' + (2.5 - 1.5 * p).toFixed(3) + ')';
+        const on = (ref, at) => { const el = ref.current; if(el) el.classList.toggle('on', p >= at); };
+        if(this.craftLabels) this.craftLabels.forEach(el=>el.classList.toggle('on', p >= parseFloat(el.dataset.at)));
+        on(this.craftEyebrowRef, .30);
+        if(this.craftHeadRef.current) this.craftHeadRef.current.classList.toggle('in', p >= .38);
+        on(this.craftCopyRef, .58);
+      } else if(this.craftImgRef.current){
+        this.craftImgRef.current.style.transform = 'scale(1.15)';
+        if(this.craftHeadRef.current) this.craftHeadRef.current.classList.add('in');
+        [this.craftEyebrowRef, this.craftCopyRef].forEach(r=>{ if(r.current) r.current.classList.add('on'); });
+        if(this.craftLabels) this.craftLabels.forEach(el=>el.classList.add('on'));
+      }
+    };
+    this.craftLabels = Array.from(root.querySelectorAll('[data-lab][data-at]'));
+
+    this.onScroll = () => { if(!this.ticking){ this.ticking = true; requestAnimationFrame(this.update); } };
+    this.onResize = () => { this.cache(); this.onScroll(); };
+    window.addEventListener('scroll', this.onScroll, {passive:true});
+    window.addEventListener('resize', this.onResize, {passive:true});
+    setTimeout(this.onResize, 300);
+    this.update();
+
+    // ---- hero: thread follows cursor ----------------------------------
+    const hero = this.heroRef.current;
+    if(hero && !this.reduced){
+      this.onHeroMove = (e) => {
+        const t = this.threadRef.current; if(!t) return;
+        const r = hero.getBoundingClientRect();
+        const dy = ((e.clientY - r.top) / r.height - .5) * 16;
+        const dx = ((e.clientX - r.left) / r.width - .5) * 10;
+        t.style.transform = 'translate3d(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px,0)';
+      };
+      hero.addEventListener('pointermove', this.onHeroMove, {passive:true});
+    }
+
+    // ---- magnetic buttons ---------------------------------------------
+    this.mags = Array.from(root.querySelectorAll('[data-mag]'));
+    if(!this.reduced){
+      this.magEnter = (e) => {
+        const el = e.currentTarget, r = el.getBoundingClientRect();
+        const dx = (e.clientX - (r.left + r.width/2)) / r.width * 14;
+        const dy = (e.clientY - (r.top + r.height/2)) / r.height * 10;
+        el.style.transform = 'translate3d(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px,0)';
+      };
+      this.magLeave = (e) => { e.currentTarget.style.transform = ''; };
+      this.mags.forEach(el=>{
+        el.addEventListener('pointermove', this.magEnter, {passive:true});
+        el.addEventListener('pointerleave', this.magLeave, {passive:true});
+        el.addEventListener('blur', this.magLeave);
+      });
+    }
+
+    // ---- carousel ------------------------------------------------------
+    const car = this.carRef.current;
+    if(car){
+      this.slides = Array.from(car.querySelectorAll('[data-slide]'));
+      this.dots = Array.from(car.querySelectorAll('[data-dot]'));
+      this.onKey = (e) => {
+        if(e.key === 'ArrowRight'){ e.preventDefault(); this.step(1); }
+        else if(e.key === 'ArrowLeft'){ e.preventDefault(); this.step(-1); }
+      };
+      car.addEventListener('keydown', this.onKey);
+      this.onWheel = (e) => {
+        if(Math.abs(e.deltaX) < 24 || Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
+        const now = Date.now();
+        if(this.wheelLock && now - this.wheelLock < 700) return;
+        this.wheelLock = now;
+        this.step(e.deltaX > 0 ? 1 : -1);
+      };
+      car.addEventListener('wheel', this.onWheel, {passive:true});
+      this.dragX = null;
+      this.onDown = (e) => {
+        if(e.target.closest('a,button')) return;
+        this.dragX = e.clientX; car.style.cursor = 'grabbing';
+      };
+      this.onMove = (e) => {
+        if(this.dragX === null) return;
+        const dx = e.clientX - this.dragX;
+        const img = this.slides[this.i].querySelector('.simg');
+        if(img) img.style.transform = 'translate3d(' + (dx * .22).toFixed(1) + 'px,0,0)';
+      };
+      this.onUp = (e) => {
+        if(this.dragX === null) return;
+        const dx = e.clientX - this.dragX;
+        this.dragX = null; car.style.cursor = 'grab';
+        const img = this.slides[this.i].querySelector('.simg');
+        if(Math.abs(dx) > 60){ this.step(dx < 0 ? 1 : -1); }
+        else if(img){ img.style.transition = 'transform .5s var(--ease)'; img.style.transform = ''; }
+      };
+      car.addEventListener('pointerdown', this.onDown);
+      window.addEventListener('pointermove', this.onMove, {passive:true});
+      window.addEventListener('pointerup', this.onUp);
+      window.addEventListener('pointercancel', this.onUp);
+    }
+  }
+
+  componentDidUpdate(){ this.applyAccent(); }
+
+  componentWillUnmount(){
+    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('pointermove', this.onMove);
+    window.removeEventListener('pointerup', this.onUp);
+    window.removeEventListener('pointercancel', this.onUp);
+    if(this.io) this.io.disconnect();
+    if(this.failsafe) clearTimeout(this.failsafe);
+    if(this.heroRef.current && this.onHeroMove) this.heroRef.current.removeEventListener('pointermove', this.onHeroMove);
+    if(this.carRef.current){
+      if(this.onKey) this.carRef.current.removeEventListener('keydown', this.onKey);
+      if(this.onWheel) this.carRef.current.removeEventListener('wheel', this.onWheel);
+      if(this.onDown) this.carRef.current.removeEventListener('pointerdown', this.onDown);
+    }
+    if(this.mags && this.magEnter) this.mags.forEach(el=>{
+      el.removeEventListener('pointermove', this.magEnter);
+      el.removeEventListener('pointerleave', this.magLeave);
+      el.removeEventListener('blur', this.magLeave);
+    });
+  }
+
+  applyAccent(){
+    if(this.props.accent) document.documentElement.style.setProperty('--gold', this.props.accent);
+  }
+
+  step(d){ this.setSlide((this.i + d + this.slides.length) % this.slides.length, d); }
+
+  setSlide(n, dir){
+    if(!this.slides || n === this.i) return;
+    const d = dir >= 0 ? 1 : -1;
+    this.slides.forEach((el, j) => {
+      const img = el.querySelector('.simg'), copy = el.querySelector('.scopy');
+      if(j === n){
+        el.style.zIndex = '2'; el.style.pointerEvents = 'auto';
+        if(img){
+          img.style.transition = 'none';
+          img.style.clipPath = d > 0 ? 'inset(0 0 0 101%)' : 'inset(0 101% 0 0)';
+          img.style.transform = 'scale(1.05)';
+          img.style.filter = 'blur(6px)';
+        }
+        if(copy){ copy.style.transition = 'none'; copy.style.transform = 'translate3d(' + (d > 0 ? 40 : -40) + 'px,0,0)'; }
+        void el.offsetWidth;
+        el.style.opacity = '1';
+        el.classList.add('live');
+        if(img){
+          img.style.transition = 'clip-path .85s var(--ease),transform .95s var(--ease),filter .7s ease-out';
+          img.style.clipPath = 'inset(0 0 0 0)'; img.style.transform = ''; img.style.filter = '';
+        }
+        if(copy){ copy.style.transition = 'transform .8s var(--ease)'; copy.style.transform = ''; }
+      } else if(j === this.i){
+        el.classList.remove('live');
+        el.style.zIndex = '1'; el.style.pointerEvents = 'none'; el.style.opacity = '0';
+        if(img){
+          img.style.transition = 'transform .8s var(--ease),filter .6s ease-out';
+          img.style.transform = 'scale(1.07)'; img.style.filter = 'blur(7px)';
+        }
+        if(copy){ copy.style.transition = 'transform .7s var(--ease)'; copy.style.transform = 'translate3d(' + (d > 0 ? -40 : 40) + 'px,0,0)'; }
+      }
+    });
+    this.i = n;
+    const car = this.carRef.current;
+    if(car) car.style.background = this.slides[n].dataset.bg || '#151210';
+    if(this.progRef.current) this.progRef.current.style.transform = 'scaleX(' + ((n + 1) / this.slides.length).toFixed(3) + ')';
+    if(this.counterRef.current) this.counterRef.current.textContent = String(n + 1).padStart(2, '0') + ' / ' + String(this.slides.length).padStart(2, '0');
+    this.dots.forEach((b, j) => b.setAttribute('aria-current', j === n ? 'true' : 'false'));
+  }
+
+  renderVals(){
+    const to = (n) => () => this.setSlide(n, n > this.i ? 1 : -1);
+    return {
+      rootRef: this.rootRef, heroRef: this.heroRef, threadRef: this.threadRef,
+      craftRef: this.craftRef, craftImgRef: this.craftImgRef, craftHeadRef: this.craftHeadRef,
+      craftEyebrowRef: this.craftEyebrowRef, craftCopyRef: this.craftCopyRef,
+      carRef: this.carRef, progRef: this.progRef, counterRef: this.counterRef,
+      wallRef: this.wallRef, wallThreadRef: this.wallThreadRef,
+      finalRef: this.finalRef, finalHeadRef: this.finalHeadRef, finalCtaRef: this.finalCtaRef,
+      showPrices: this.props.showPrices !== false,
+      go0: to(0), go1: to(1), go2: to(2), go3: to(3), go4: to(4)
+    };
+  }
+}
+</script>
+</body>
+</html>

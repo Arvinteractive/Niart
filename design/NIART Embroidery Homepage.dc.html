@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+--ivory:#FBF8F3;--ink:#1A1613;--gold:#B08D57;--rose:#C9A9A0;--sage:#4A5A4C;
+--line:rgba(26,22,19,.14);--muted:rgba(26,22,19,.62);
+--serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+--sans:'Inter',system-ui,-apple-system,sans-serif;
+--linen:repeating-linear-gradient(45deg,rgba(26,22,19,.05) 0 1px,transparent 1px 6px),repeating-linear-gradient(-45deg,rgba(26,22,19,.035) 0 1px,transparent 1px 7px),linear-gradient(150deg,#EFE8DC 0%,#E3D9C8 55%,#D8CDBA 100%);
+--linen-rose:repeating-linear-gradient(45deg,rgba(26,22,19,.05) 0 1px,transparent 1px 6px),repeating-linear-gradient(-45deg,rgba(26,22,19,.03) 0 1px,transparent 1px 7px),linear-gradient(150deg,#EDE0DA 0%,#DCC8C1 100%);
+--linen-sage:repeating-linear-gradient(45deg,rgba(26,22,19,.06) 0 1px,transparent 1px 6px),repeating-linear-gradient(-45deg,rgba(26,22,19,.03) 0 1px,transparent 1px 7px),linear-gradient(150deg,#DFE2D8 0%,#C6CDC0 100%);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ivory);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;letter-spacing:.01em;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+a{color:inherit;text-decoration:none;transition:color .3s ease-out}
+a:hover{color:var(--gold)}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+[data-rise]{opacity:0;transform:translateY(18px);transition:opacity .7s ease-out,transform .7s ease-out}
+[data-rise].in{opacity:1;transform:none}
+[data-zoom]{overflow:hidden}
+[data-zoom] .zi{transition:transform .9s ease-out;will-change:transform}
+[data-zoom]:hover .zi,[data-zoom]:focus-within .zi{transform:scale(1.03)}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.08)}}
+.kb{animation:kb 6s ease-out both}
+[data-card] .enq{opacity:0;transform:translateY(6px);transition:opacity .45s ease-out,transform .45s ease-out}
+[data-card]:hover .enq,[data-card]:focus-within .enq{opacity:1;transform:none}
+[data-underline]{background-image:linear-gradient(var(--gold),var(--gold));background-size:100% 1px;background-repeat:no-repeat;background-position:0 100%;transition:background-size .4s ease-out}
+[data-underline]:hover{background-size:0% 1px}
+[data-navlink]{position:relative}
+[data-navlink]::after{content:"";position:absolute;left:0;bottom:-4px;height:1px;width:0;background:var(--gold);transition:width .4s ease-out}
+[data-navlink]:hover::after{width:100%}
+[data-burger]{display:none}
+[data-navlink],[data-navcta]{white-space:nowrap}
+@media(max-width:1024px){
+[data-shell]{padding-left:48px!important;padding-right:48px!important}
+[data-navlinks]{gap:22px!important;font-size:12.5px!important}
+[data-navcta]{padding:10px 14px!important;font-size:10.5px!important}
+[data-crafts]{grid-template-columns:repeat(2,1fr)!important}
+[data-prod]{grid-template-columns:repeat(2,1fr)!important}
+[data-steps]{grid-template-columns:repeat(2,1fr)!important}
+}
+@media(max-width:768px){
+[data-sec]{padding-top:72px!important;padding-bottom:72px!important}
+[data-shell]{padding-left:24px!important;padding-right:24px!important}
+[data-hero]{grid-template-columns:1fr!important;min-height:auto!important}
+[data-heropane]{padding:112px 24px 56px!important}
+[data-heroimg]{height:64vh!important}
+[data-fgrid]{grid-template-columns:1fr!important}
+[data-ftall]{grid-row:auto!important}
+[data-atelier]{grid-template-columns:1fr!important}
+[data-ig]{grid-template-columns:repeat(3,1fr)!important}
+[data-foot]{grid-template-columns:repeat(2,1fr)!important}
+[data-navlinks],[data-navcta]{display:none!important}
+[data-burger]{display:flex!important}
+[data-form]{grid-template-columns:1fr!important}
+[data-stats]{gap:28px!important}
+}
+@media(max-width:480px){
+[data-crafts]{grid-template-columns:1fr!important}
+[data-prod]{grid-template-columns:1fr!important}
+[data-stats]{flex-direction:column!important;align-items:flex-start!important}
+}
+@media(prefers-reduced-motion:reduce){
+*{animation:none!important;transition:none!important}
+[data-rise]{opacity:1!important;transform:none!important}
+html{scroll-behavior:auto}
+}
+</style>
+</helmet>
+<div ref="{{ rootRef }}" style="background:var(--ivory);overflow-x:hidden">
+
+<a href="#main" style="position:absolute;left:-9999px;top:0;padding:12px 18px;background:var(--ink);color:var(--ivory);z-index:200" style-focus="left:12px;top:12px">Skip to content</a>
+
+<header ref="{{ navRef }}" style="position:fixed;top:0;left:0;right:0;z-index:100;background:transparent;border-bottom:1px solid transparent;transition:background .5s ease-out,border-color .5s ease-out,backdrop-filter .5s ease-out">
+  <nav aria-label="Primary" data-shell style="max-width:1240px;margin:0 auto;padding:0 88px;height:76px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px">
+    <div style="display:flex;align-items:center;gap:34px">
+      <button data-burger type="button" aria-label="Open menu" aria-expanded="false" ref="{{ burgerRef }}" onClick="{{ openMenu }}" style="display:none;flex-direction:column;justify-content:center;gap:5px;width:34px;height:34px;background:none;border:none;padding:0;margin-left:-6px">
+        <span style="display:block;width:22px;height:1px;background:currentColor"></span>
+        <span style="display:block;width:22px;height:1px;background:currentColor"></span>
+      </button>
+      <div data-navlinks style="display:flex;gap:34px;font-size:13px;letter-spacing:.06em">
+        <a data-navlink href="#collections">Collections</a>
+        <a data-navlink href="#custom">Custom Orders</a>
+        <a data-navlink href="#atelier">The Atelier</a>
+        <a data-navlink href="#journal">Journal</a>
+      </div>
+    </div>
+    <a href="#main" aria-label="NIART Embroidery, home" style="text-align:center;display:block">
+      <span style="display:block;font-family:var(--serif);font-size:23px;font-weight:500;letter-spacing:.3em;line-height:1;padding-left:.3em">NIART</span>
+      <span style="display:block;font-size:8.5px;letter-spacing:.42em;margin-top:5px;color:var(--muted);padding-left:.42em">EMBROIDERY</span>
+    </a>
+    <div style="display:flex;align-items:center;justify-content:flex-end;gap:26px">
+      <a data-navcta href="#consultation" style="border:1px solid var(--line);padding:11px 20px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;transition:background .4s ease-out,color .4s ease-out,border-color .4s ease-out" style-hover="background:var(--ink);color:var(--ivory);border-color:var(--ink)">Book a Consultation</a>
+      <a href="#" aria-label="Cart, 0 items" style="display:flex;align-items:center;gap:6px">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M3.6 5.6h10.8l-.9 10.4H4.5z"/><path d="M6.6 5.6V4.2a2.4 2.4 0 0 1 4.8 0v1.4"/></svg>
+        <span style="font-size:11px;letter-spacing:.08em;color:var(--muted)">0</span>
+      </a>
+    </div>
+  </nav>
+</header>
+
+<div ref="{{ drawerRef }}" role="dialog" aria-modal="true" aria-label="Menu" style="position:fixed;inset:0;z-index:120;background:var(--ivory);padding:28px 24px;display:none;flex-direction:column">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <span style="font-family:var(--serif);font-size:20px;letter-spacing:.3em;padding-left:.3em">NIART</span>
+    <button type="button" aria-label="Close menu" onClick="{{ closeMenu }}" style="background:none;border:none;font-size:24px;line-height:1;padding:6px 10px">&times;</button>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:8px;margin-top:56px;font-family:var(--serif);font-size:36px;line-height:1.35">
+    <a href="#collections" onClick="{{ closeMenu }}">Collections</a>
+    <a href="#custom" onClick="{{ closeMenu }}">Custom Orders</a>
+    <a href="#atelier" onClick="{{ closeMenu }}">The Atelier</a>
+    <a href="#journal" onClick="{{ closeMenu }}">Journal</a>
+  </div>
+  <a href="#consultation" onClick="{{ closeMenu }}" style="margin-top:auto;text-align:center;background:var(--ink);color:var(--ivory);padding:17px;font-size:12px;letter-spacing:.16em;text-transform:uppercase">Book a Consultation</a>
+</div>
+
+<main id="main">
+
+<section data-hero aria-labelledby="hero-h" style="display:grid;grid-template-columns:45% 55%;min-height:100vh">
+  <div data-heropane style="display:flex;flex-direction:column;justify-content:center;padding:120px 72px 120px 88px;background:var(--ivory)">
+    <p data-rise style="margin:0;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)">Hand-embroidered in India</p>
+    <h1 id="hero-h" data-rise style="margin:26px 0 0;font-family:var(--serif);font-weight:400;font-size:clamp(44px,5.2vw,88px);line-height:1.02;letter-spacing:-.015em;transition-delay:.09s">Threads that remember the hand that made them.</h1>
+    <p data-rise style="margin:30px 0 0;max-width:44ch;font-size:16.5px;line-height:1.75;color:var(--muted);transition-delay:.18s">Made-to-measure lehengas, sarees, kurta sets and blouses, embroidered stitch by stitch in our Coimbatore atelier. One piece at a time, for one person at a time.</p>
+    <div data-rise style="display:flex;flex-wrap:wrap;align-items:center;gap:30px;margin-top:44px;transition-delay:.27s">
+      <a href="#collections" style="background:var(--ink);color:var(--ivory);padding:17px 34px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;transition:background .4s ease-out" style-hover="background:var(--gold)">Explore Collections</a>
+      <a data-underline href="#custom" style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding-bottom:3px">Design Your Own</a>
+    </div>
+  </div>
+  <div data-heroimg role="img" aria-label="Bridal lehenga in progress on an adda frame, gold zardozi worked in natural window light" style="position:relative;overflow:hidden;background:var(--ink)">
+    <div class="kb" style="position:absolute;inset:0;background:var(--linen);background-size:cover"></div>
+    <span style="position:absolute;left:26px;bottom:24px;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.06em;color:rgba(26,22,19,.5)">image 16:9 — bridal lehenga on the adda frame</span>
+  </div>
+</section>
+
+<section data-sec aria-labelledby="crafts-h" style="padding:110px 0;border-top:1px solid var(--line)">
+  <div data-shell style="max-width:1240px;margin:0 auto;padding:0 88px">
+    <h2 id="crafts-h" style="margin:0 0 54px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500">Signature crafts</h2>
+    <div data-crafts style="display:grid;grid-template-columns:repeat(4,1fr);gap:56px">
+      <div data-rise>
+        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="var(--gold)" stroke-width="1" aria-hidden="true"><circle cx="17" cy="17" r="11"/><circle cx="17" cy="17" r="4.5"/></svg>
+        <h3 style="margin:20px 0 10px;font-family:var(--serif);font-size:25px;font-weight:400">Zardozi</h3>
+        <p style="margin:0;font-size:15px;line-height:1.7;color:var(--muted)">Gold and silver metal thread, couched by hand onto silk.</p>
+      </div>
+      <div data-rise style="transition-delay:.08s">
+        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="var(--gold)" stroke-width="1" aria-hidden="true"><path d="M5 29 L23 11"/><path d="M23 11a5 5 0 1 1 6 6"/></svg>
+        <h3 style="margin:20px 0 10px;font-family:var(--serif);font-size:25px;font-weight:400">Aari</h3>
+        <p style="margin:0;font-size:15px;line-height:1.7;color:var(--muted)">A hooked needle worked from below, for fine chain-stitch lines.</p>
+      </div>
+      <div data-rise style="transition-delay:.16s">
+        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="var(--gold)" stroke-width="1" aria-hidden="true"><rect x="7" y="7" width="20" height="20" transform="rotate(45 17 17)"/><circle cx="17" cy="17" r="3.5"/></svg>
+        <h3 style="margin:20px 0 10px;font-family:var(--serif);font-size:25px;font-weight:400">Mirror &amp; Sequin</h3>
+        <p style="margin:0;font-size:15px;line-height:1.7;color:var(--muted)">Shisha glass and hand-set sequins, anchored with silk floss.</p>
+      </div>
+      <div data-rise style="transition-delay:.24s">
+        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="var(--gold)" stroke-width="1" aria-hidden="true"><path d="M4 12c5-6 10 6 15 0s5-6 11 0"/><path d="M4 22c5-6 10 6 15 0s5-6 11 0"/></svg>
+        <h3 style="margin:20px 0 10px;font-family:var(--serif);font-size:25px;font-weight:400">Threadwork</h3>
+        <p style="margin:0;font-size:15px;line-height:1.7;color:var(--muted)">Cotton and resham in satin, stem and French knot.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="collections" data-sec aria-labelledby="coll-h" style="padding:120px 0">
+  <div data-shell style="max-width:1240px;margin:0 auto;padding:0 88px">
+    <div data-rise style="display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-bottom:58px">
+      <div>
+        <p style="margin:0 0 16px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)">Featured</p>
+        <h2 id="coll-h" style="margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(38px,4.4vw,60px);line-height:1.05;letter-spacing:-.01em">Collections in the studio now</h2>
+      </div>
+      <a data-underline href="#" style="flex:none;font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding-bottom:3px">View all</a>
+    </div>
+    <div data-fgrid style="display:grid;grid-template-columns:1fr 1fr;gap:28px">
+      <a data-ftall data-zoom data-rise href="#" style="grid-row:span 2;position:relative;display:block;aspect-ratio:3/4;background:var(--ink)">
+        <span class="zi" role="img" aria-label="Bridal lehenga with hand-worked gold zardozi border, photographed on a mannequin" style="position:absolute;inset:0;background:var(--linen)"></span>
+        <span style="position:absolute;inset:auto 0 0 0;padding:34px 30px;background:linear-gradient(to top,rgba(26,22,19,.72),transparent);color:#FBF8F3;display:block">
+          <span style="display:block;font-family:var(--serif);font-size:33px;line-height:1.15">Kanmani — Bridal</span>
+          <span style="display:block;margin-top:7px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.8">14 pieces · lehengas &amp; sarees</span>
+        </span>
+      </a>
+      <a data-zoom data-rise href="#" style="position:relative;display:block;aspect-ratio:16/10;background:var(--ink);transition-delay:.08s">
+        <span class="zi" role="img" aria-label="Festive kurta sets in rose and ivory, folded on a wooden table" style="position:absolute;inset:0;background:var(--linen-rose)"></span>
+        <span style="position:absolute;inset:auto 0 0 0;padding:28px;background:linear-gradient(to top,rgba(26,22,19,.7),transparent);color:#FBF8F3;display:block">
+          <span style="display:block;font-family:var(--serif);font-size:28px;line-height:1.15">Suriya — Festive</span>
+          <span style="display:block;margin-top:6px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.8">22 pieces · kurta sets</span>
+        </span>
+      </a>
+      <a data-zoom data-rise href="#" style="position:relative;display:block;aspect-ratio:16/10;background:var(--ink);transition-delay:.16s">
+        <span class="zi" role="img" aria-label="Ivory silk blouse with aari threadwork sleeves, hung against a plain wall" style="position:absolute;inset:0;background:var(--linen-sage)"></span>
+        <span style="position:absolute;inset:auto 0 0 0;padding:28px;background:linear-gradient(to top,rgba(26,22,19,.7),transparent);color:#FBF8F3;display:block">
+          <span style="display:block;font-family:var(--serif);font-size:28px;line-height:1.15">Nilaa — Blouses</span>
+          <span style="display:block;margin-top:6px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.8">9 pieces · aari &amp; zardozi</span>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="custom" data-sec aria-labelledby="custom-h" style="padding:120px 0;background:var(--sage);color:#F2F0E9">
+  <div data-shell style="max-width:1240px;margin:0 auto;padding:0 88px">
+    <div data-rise style="max-width:620px;margin-bottom:72px">
+      <p style="margin:0 0 16px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:rgba(242,240,233,.6)">Custom orders</p>
+      <h2 id="custom-h" style="margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(36px,4.2vw,56px);line-height:1.08">How a piece comes together</h2>
+    </div>
+    <ol data-steps style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:44px">
+      <li data-rise style="position:relative;padding-top:30px;border-top:1px solid rgba(242,240,233,.28)">
+        <span style="position:absolute;top:-8px;left:0;width:15px;height:15px;border-radius:50%;background:var(--sage);border:1px solid rgba(242,240,233,.5)"></span>
+        <span style="font-size:11.5px;letter-spacing:.18em;color:rgba(242,240,233,.6)">01</span>
+        <h3 style="margin:12px 0 12px;font-family:var(--serif);font-size:29px;font-weight:400">Consult</h3>
+        <p style="margin:0;font-size:15px;line-height:1.7;color:rgba(242,240,233,.78)">An hour with a designer, in studio or on video. Bring references, photographs, an old saree.</p>
+      </li>
+      <li data-rise style="position:relative;padding-top:30px;border-top:1px solid rgba(242,240,233,.28);transition-delay:.08s">
+        <span style="position:absolute;top:-8px;left:0;width:15px;height:15px;border-radius:50%;background:var(--sage);border:1px solid rgba(242,240,233,.5)"></span>
+        <span style="font-size:11.5px;letter-spacing:.18em;color:rgba(242,240,233,.6)">02</span>
+        <h3 style="margin:12px 0 12px;font-family:var(--serif);font-size:29px;font-weight:400">Sketch &amp; Fabric</h3>
+        <p style="margin:0;font-size:15px;line-height:1.7;color:rgba(242,240,233,.78)">A hand drawing and three fabric options, couriered to you. Two revisions included.</p>
+      </li>
+      <li data-rise style="position:relative;padding-top:30px;border-top:1px solid rgba(242,240,233,.28);transition-delay:.16s">
+        <span style="position:absolute;top:-8px;left:0;width:15px;height:15px;border-radius:50%;background:var(--sage);border:1px solid rgba(242,240,233,.5)"></span>
+        <span style="font-size:11.5px;letter-spacing:.18em;color:rgba(242,240,233,.6)">03</span>
+        <h3 style="margin:12px 0 12px;font-family:var(--serif);font-size:29px;font-weight:400">Measure</h3>
+        <p style="margin:0;font-size:15px;line-height:1.7;color:rgba(242,240,233,.78)">Fourteen measurements, taken in person or with our guide. One fitting at the muslin stage.</p>
+      </li>
+      <li data-rise style="position:relative;padding-top:30px;border-top:1px solid rgba(242,240,233,.28);transition-delay:.24s">
+        <span style="position:absolute;top:-8px;left:0;width:15px;height:15px;border-radius:50%;background:var(--sage);border:1px solid rgba(242,240,233,.5)"></span>
+        <span style="font-size:11.5px;letter-spacing:.18em;color:rgba(242,240,233,.6)">04</span>
+        <h3 style="margin:12px 0 12px;font-family:var(--serif);font-size:29px;font-weight:400">Hand-embroider</h3>
+        <p style="margin:0;font-size:15px;line-height:1.7;color:rgba(242,240,233,.78)">Four to six weeks on the frame. Photographs at every stage, and a final fitting before dispatch.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="atelier" data-sec aria-labelledby="atelier-h" style="padding:120px 0">
+  <div data-shell style="max-width:1240px;margin:0 auto;padding:0 88px">
+    <div data-atelier style="display:grid;grid-template-columns:55% 45%;gap:72px;align-items:center">
+      <div data-zoom data-rise style="position:relative;aspect-ratio:16/9;background:var(--ink)">
+        <span class="zi" role="img" aria-label="Karigars at work on adda frames in the Coimbatore atelier, morning light from tall windows" style="position:absolute;inset:0;background:var(--linen)"></span>
+        <span style="position:absolute;left:22px;bottom:18px;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;color:rgba(26,22,19,.5)">image 16:9 — atelier floor, adda frames</span>
+      </div>
+      <div data-rise style="transition-delay:.1s">
+        <p style="margin:0 0 16px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)">The atelier</p>
+        <h2 id="atelier-h" style="margin:0 0 26px;font-family:var(--serif);font-weight:400;font-size:clamp(34px,3.6vw,50px);line-height:1.1">Above a fabric street in Coimbatore</h2>
+        <p style="margin:0 0 18px;font-size:16px;line-height:1.78;color:var(--muted)">Twenty karigars work here. Most were trained by the two who started with us in 2008. A bridal lehenga takes between 300 and 600 hours on the adda frame, and we do not shorten that.</p>
+        <p style="margin:0;font-size:16px;line-height:1.78;color:var(--muted)">Zardozi, aari and kamdani were learned in workshops in Lucknow and Bhuj. We teach them the same way here — at the frame, over years.</p>
+        <div data-stats style="display:flex;gap:56px;margin-top:44px;padding-top:30px;border-top:1px solid var(--line)">
+          <div><span style="display:block;font-family:var(--serif);font-size:38px;line-height:1">20+</span><span style="display:block;margin-top:6px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Artisans</span></div>
+          <div><span style="display:block;font-family:var(--serif);font-size:38px;line-height:1">18</span><span style="display:block;margin-top:6px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Years</span></div>
+          <div><span style="display:block;font-family:var(--serif);font-size:38px;line-height:1">4,000+</span><span style="display:block;margin-top:6px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Pieces made</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-sec aria-labelledby="best-h" style="padding:120px 0;border-top:1px solid var(--line)">
+  <div data-shell style="max-width:1240px;margin:0 auto;padding:0 88px">
+    <div data-rise style="display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-bottom:52px">
+      <h2 id="best-h" style="margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(34px,3.6vw,50px);line-height:1.1">Most asked for</h2>
+      <a data-underline href="#" style="flex:none;font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding-bottom:3px">All pieces</a>
+    </div>
+    <div data-prod style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px">
+      <article data-card data-rise>
+        <a data-zoom href="#" style="position:relative;display:block;aspect-ratio:3/4;background:var(--ink)">
+          <span class="zi" role="img" aria-label="Anaikatti bridal lehenga in deep maroon with gold zardozi hem" style="position:absolute;inset:0;background:var(--linen)"></span>
+          <span class="enq" style="position:absolute;left:16px;right:16px;bottom:16px;text-align:center;background:var(--ivory);color:var(--ink);padding:13px;font-size:11px;letter-spacing:.16em;text-transform:uppercase">Enquire</span>
+        </a>
+        <h3 style="margin:18px 0 6px;font-family:var(--serif);font-size:22px;font-weight:400">Anaikatti Bridal Lehenga</h3>
+        <p style="margin:0;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Made to order</p>
+        <sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><p style="margin:9px 0 0;font-size:15px;color:var(--ink)">From ₹1,45,000</p></sc-if>
+      </article>
+      <article data-card data-rise style="transition-delay:.08s">
+        <a data-zoom href="#" style="position:relative;display:block;aspect-ratio:3/4;background:var(--ink)">
+          <span class="zi" role="img" aria-label="Chinnalampatti silk saree with aari-worked border in rose and gold" style="position:absolute;inset:0;background:var(--linen-rose)"></span>
+          <span class="enq" style="position:absolute;left:16px;right:16px;bottom:16px;text-align:center;background:var(--ivory);color:var(--ink);padding:13px;font-size:11px;letter-spacing:.16em;text-transform:uppercase">Enquire</span>
+        </a>
+        <h3 style="margin:18px 0 6px;font-family:var(--serif);font-size:22px;font-weight:400">Chinnalampatti Silk Saree</h3>
+        <p style="margin:0;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Made to order</p>
+        <sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><p style="margin:9px 0 0;font-size:15px;color:var(--ink)">From ₹38,000</p></sc-if>
+      </article>
+      <article data-card data-rise style="transition-delay:.16s">
+        <a data-zoom href="#" style="position:relative;display:block;aspect-ratio:3/4;background:var(--ink)">
+          <span class="zi" role="img" aria-label="Ivory silk blouse with dense gold zardozi on the sleeves" style="position:absolute;inset:0;background:var(--linen-sage)"></span>
+          <span class="enq" style="position:absolute;left:16px;right:16px;bottom:16px;text-align:center;background:var(--ivory);color:var(--ink);padding:13px;font-size:11px;letter-spacing:.16em;text-transform:uppercase">Enquire</span>
+        </a>
+        <h3 style="margin:18px 0 6px;font-family:var(--serif);font-size:22px;font-weight:400">Ivory Zardozi Blouse</h3>
+        <p style="margin:0;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Made to order</p>
+        <sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><p style="margin:9px 0 0;font-size:15px;color:var(--ink)">From ₹22,000</p></sc-if>
+      </article>
+      <article data-card data-rise style="transition-delay:.24s">
+        <a data-zoom href="#" style="position:relative;display:block;aspect-ratio:3/4;background:var(--ink)">
+          <span class="zi" role="img" aria-label="Rose kurta set with fine threadwork along the placket and cuffs" style="position:absolute;inset:0;background:var(--linen-rose)"></span>
+          <span class="enq" style="position:absolute;left:16px;right:16px;bottom:16px;text-align:center;background:var(--ivory);color:var(--ink);padding:13px;font-size:11px;letter-spacing:.16em;text-transform:uppercase">Enquire</span>
+        </a>
+        <h3 style="margin:18px 0 6px;font-family:var(--serif);font-size:22px;font-weight:400">Rose Threadwork Kurta Set</h3>
+        <p style="margin:0;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Made to order</p>
+        <sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><p style="margin:9px 0 0;font-size:15px;color:var(--ink)">From ₹16,500</p></sc-if>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section data-sec aria-label="What clients say" style="padding:130px 0;background:#F6F1E8">
+  <div data-shell style="max-width:1240px;margin:0 auto;padding:0 88px">
+    <div data-rise style="max-width:860px;margin:0 auto;text-align:center">
+      <div aria-live="polite" style="display:grid">
+        <figure data-q="0" style="grid-area:1/1;margin:0;opacity:1;transition:opacity .6s ease-out">
+          <blockquote style="margin:0;font-family:var(--serif);font-weight:300;font-size:clamp(28px,3.2vw,44px);line-height:1.28;letter-spacing:-.005em">“They took my grandmother's saree border and drew a whole lehenga around it. I cried at the trial, not the wedding.”</blockquote>
+          <figcaption style="margin-top:30px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)">Aishwarya R. — Bride, Coimbatore</figcaption>
+        </figure>
+        <figure data-q="1" style="grid-area:1/1;margin:0;opacity:0;pointer-events:none;transition:opacity .6s ease-out">
+          <blockquote style="margin:0;font-family:var(--serif);font-weight:300;font-size:clamp(28px,3.2vw,44px);line-height:1.28;letter-spacing:-.005em">“I send them my hardest briefs. The zardozi comes back cleaner than my sketch.”</blockquote>
+          <figcaption style="margin-top:30px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)">Meera Subramanian — Stylist, Chennai</figcaption>
+        </figure>
+        <figure data-q="2" style="grid-area:1/1;margin:0;opacity:0;pointer-events:none;transition:opacity .6s ease-out">
+          <blockquote style="margin:0;font-family:var(--serif);font-weight:300;font-size:clamp(28px,3.2vw,44px);line-height:1.28;letter-spacing:-.005em">“Sixty blouses a season, every one on time. My customers ask who does the aari.”</blockquote>
+          <figcaption style="margin-top:30px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)">Farida Noor — Boutique buyer, Bengaluru</figcaption>
+        </figure>
+      </div>
+      <div style="display:flex;justify-content:center;gap:14px;margin-top:48px">
+        <button type="button" data-dot="0" aria-label="Show testimonial 1" onClick="{{ q0 }}" style="width:8px;height:8px;padding:0;border-radius:50%;border:1px solid var(--ink);background:var(--ink);transition:background .3s ease-out"></button>
+        <button type="button" data-dot="1" aria-label="Show testimonial 2" onClick="{{ q1 }}" style="width:8px;height:8px;padding:0;border-radius:50%;border:1px solid var(--ink);background:transparent;transition:background .3s ease-out"></button>
+        <button type="button" data-dot="2" aria-label="Show testimonial 3" onClick="{{ q2 }}" style="width:8px;height:8px;padding:0;border-radius:50%;border:1px solid var(--ink);background:transparent;transition:background .3s ease-out"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="journal" data-sec aria-labelledby="ig-h" style="padding:110px 0 0">
+  <div data-shell style="max-width:1240px;margin:0 auto 46px;padding:0 88px;display:flex;align-items:baseline;justify-content:space-between;gap:24px;flex-wrap:wrap">
+    <h2 id="ig-h" style="margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(28px,3vw,40px)">From the lookbook</h2>
+    <a data-underline href="#" style="font-size:12px;letter-spacing:.16em;padding-bottom:3px">@niart.embroidery</a>
+  </div>
+  <div data-ig style="display:grid;grid-template-columns:repeat(6,1fr);gap:2px">
+    <a data-zoom href="#" style="position:relative;display:block;aspect-ratio:1;background:var(--ink)"><span class="zi" role="img" aria-label="Close-up of gold zardozi knots on maroon silk" style="position:absolute;inset:0;background:var(--linen)"></span></a>
+    <a data-zoom href="#" style="position:relative;display:block;aspect-ratio:1;background:var(--ink)"><span class="zi" role="img" aria-label="Bride adjusting a hand-embroidered dupatta" style="position:absolute;inset:0;background:var(--linen-rose)"></span></a>
+    <a data-zoom href="#" style="position:relative;display:block;aspect-ratio:1;background:var(--ink)"><span class="zi" role="img" aria-label="Spools of resham thread sorted by shade" style="position:absolute;inset:0;background:var(--linen-sage)"></span></a>
+    <a data-zoom href="#" style="position:relative;display:block;aspect-ratio:1;background:var(--ink)"><span class="zi" role="img" aria-label="Aari needle mid-stitch on stretched fabric" style="position:absolute;inset:0;background:var(--linen-rose)"></span></a>
+    <a data-zoom href="#" style="position:relative;display:block;aspect-ratio:1;background:var(--ink)"><span class="zi" role="img" aria-label="Ivory blouse sleeve with mirror and sequin work" style="position:absolute;inset:0;background:var(--linen)"></span></a>
+    <a data-zoom href="#" style="position:relative;display:block;aspect-ratio:1;background:var(--ink)"><span class="zi" role="img" aria-label="Karigar's hands on the adda frame" style="position:absolute;inset:0;background:var(--linen-sage)"></span></a>
+  </div>
+</section>
+
+<section id="consultation" data-sec aria-labelledby="cta-h" style="padding:130px 0;background:var(--ink);color:#F5F0E8;margin-top:0">
+  <div data-shell style="max-width:1240px;margin:0 auto;padding:0 88px">
+    <div data-rise style="max-width:900px;margin:0 auto;text-align:center">
+      <span style="display:block;width:64px;height:1px;background:var(--gold);margin:0 auto 34px"></span>
+      <p style="margin:0 0 20px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)">Book a consultation</p>
+      <h2 id="cta-h" style="margin:0 0 22px;font-family:var(--serif);font-weight:300;font-size:clamp(36px,4.6vw,64px);line-height:1.08">Let's design something only yours.</h2>
+      <p style="margin:0 auto 52px;max-width:52ch;font-size:16px;line-height:1.75;color:rgba(245,240,232,.62)">Tell us the occasion and we will reply within a day with dates, and what to bring.</p>
+      <form ref="{{ formRef }}" onSubmit="{{ onSubmit }}" style="text-align:left">
+        <div data-form style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px">
+          <div style="display:flex;flex-direction:column;gap:9px">
+            <label for="f-name" style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(245,240,232,.6)">Name</label>
+            <input id="f-name" name="name" type="text" required autocomplete="name" placeholder="Your name" style="background:transparent;border:none;border-bottom:1px solid rgba(245,240,232,.28);color:#F5F0E8;font-family:var(--sans);font-size:15px;padding:11px 0;transition:border-color .4s ease-out" style-focus="border-color:var(--gold);outline:none">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:9px">
+            <label for="f-phone" style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(245,240,232,.6)">WhatsApp</label>
+            <input id="f-phone" name="whatsapp" type="tel" required autocomplete="tel" placeholder="+91" style="background:transparent;border:none;border-bottom:1px solid rgba(245,240,232,.28);color:#F5F0E8;font-family:var(--sans);font-size:15px;padding:11px 0;transition:border-color .4s ease-out" style-focus="border-color:var(--gold);outline:none">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:9px">
+            <label for="f-occasion" style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(245,240,232,.6)">Occasion</label>
+            <input id="f-occasion" name="occasion" type="text" placeholder="Wedding, reception, festive" style="background:transparent;border:none;border-bottom:1px solid rgba(245,240,232,.28);color:#F5F0E8;font-family:var(--sans);font-size:15px;padding:11px 0;transition:border-color .4s ease-out" style-focus="border-color:var(--gold);outline:none">
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:24px;margin-top:46px;flex-wrap:wrap">
+          <button type="submit" style="background:var(--gold);color:#1A1613;border:none;padding:17px 42px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;transition:background .4s ease-out,color .4s ease-out" style-hover="background:#F5F0E8;color:#1A1613">Request a date</button>
+          <p ref="{{ thanksRef }}" role="status" style="margin:0;font-size:14px;color:var(--gold);opacity:0;transition:opacity .5s ease-out">Thank you — we will message you on WhatsApp within a day.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:var(--ivory);padding:96px 0 44px;border-top:1px solid var(--line)">
+  <div data-shell style="max-width:1240px;margin:0 auto;padding:0 88px">
+    <div data-foot style="display:grid;grid-template-columns:repeat(4,1fr);gap:48px">
+      <div>
+        <h3 style="margin:0 0 20px;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500">Shop</h3>
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px;font-size:15px">
+          <li><a href="#">Lehengas</a></li><li><a href="#">Sarees</a></li><li><a href="#">Kurta sets</a></li><li><a href="#">Blouses</a></li><li><a href="#">Bridal</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin:0 0 20px;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500">Custom</h3>
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px;font-size:15px">
+          <li><a href="#custom">How it works</a></li><li><a href="#consultation">Book a consultation</a></li><li><a href="#">Measurement guide</a></li><li><a href="#">Fabric library</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin:0 0 20px;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500">About</h3>
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px;font-size:15px">
+          <li><a href="#atelier">The atelier</a></li><li><a href="#">Our karigars</a></li><li><a href="#journal">Journal</a></li><li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin:0 0 20px;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500">Contact</h3>
+        <address style="font-style:normal;font-size:15px;line-height:1.75;color:var(--muted)">
+          No. 12, Ramanathapuram<br>Trichy Road, Coimbatore 641045<br>
+          <a href="https://wa.me/919843022118">WhatsApp +91 98430 22118</a><br>
+          <a href="mailto:studio@niartembroidery.in">studio@niartembroidery.in</a>
+        </address>
+      </div>
+    </div>
+    <p style="margin:64px 0 0;padding-top:26px;border-top:1px solid var(--line);font-size:13px;line-height:1.7;color:var(--muted);max-width:78ch">Ships worldwide from Coimbatore. Fifty percent advance to begin, balance before dispatch. Made-to-order pieces are not returnable; alterations are free for sixty days.</p>
+    <p style="margin:22px 0 0;font-size:11.5px;letter-spacing:.1em;color:rgba(26,22,19,.45)">© 2026 Niart Embroidery. Every piece worked by hand.</p>
+  </div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1100},&quot;showPrices&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;autoRotateQuotes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#B08D57&quot;,&quot;options&quot;:[&quot;#B08D57&quot;,&quot;#C9A9A0&quot;,&quot;#4A5A4C&quot;,&quot;#8C6E4A&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Theme&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.rootRef = React.createRef();
+    this.navRef = React.createRef();
+    this.drawerRef = React.createRef();
+    this.burgerRef = React.createRef();
+    this.formRef = React.createRef();
+    this.thanksRef = React.createRef();
+    this.quote = 0;
+  }
+  componentDidMount(){
+    this.applyAccent();
+    this.onScroll = () => {
+      const n = this.navRef.current; if(!n) return;
+      const on = window.scrollY > 80;
+      n.style.background = on ? 'var(--ivory)' : 'transparent';
+      n.style.borderBottomColor = on ? 'var(--line)' : 'transparent';
+      n.style.backdropFilter = on ? 'saturate(140%) blur(6px)' : 'none';
+    };
+    window.addEventListener('scroll', this.onScroll, {passive:true});
+    this.onScroll();
+
+    const root = this.rootRef.current;
+    this.revealVisible = () => {
+      if(!this.rootRef.current) return;
+      this.rootRef.current.querySelectorAll('[data-rise]:not(.in)').forEach(el=>{
+        if(el.getBoundingClientRect().top < window.innerHeight * 0.94) el.classList.add('in');
+      });
+    };
+    if(root){
+      this.revealVisible();
+      window.addEventListener('scroll', this.revealVisible, {passive:true});
+      window.addEventListener('resize', this.revealVisible, {passive:true});
+      if('IntersectionObserver' in window){
+        this.io = new IntersectionObserver((es)=>{
+          es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); this.io.unobserve(e.target); } });
+        },{rootMargin:'0px 0px -6% 0px',threshold:.05});
+        root.querySelectorAll('[data-rise]').forEach(el=>this.io.observe(el));
+      }
+      this.failsafe = setTimeout(()=>{
+        if(this.rootRef.current && !this.rootRef.current.querySelector('[data-rise].in')){
+          this.rootRef.current.querySelectorAll('[data-rise]').forEach(el=>el.classList.add('in'));
+        }
+      }, 900);
+    }
+    this.onKey = (e)=>{ if(e.key === 'Escape') this.closeMenu(); };
+    window.addEventListener('keydown', this.onKey);
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(this.props.autoRotateQuotes !== false && !reduced){
+      this.timer = setInterval(()=>this.setQuote((this.quote + 1) % 3), 7000);
+    }
+  }
+  componentDidUpdate(){ this.applyAccent(); }
+  componentWillUnmount(){
+    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('keydown', this.onKey);
+    if(this.revealVisible){
+      window.removeEventListener('scroll', this.revealVisible);
+      window.removeEventListener('resize', this.revealVisible);
+    }
+    if(this.failsafe) clearTimeout(this.failsafe);
+    if(this.io) this.io.disconnect();
+    if(this.timer) clearInterval(this.timer);
+  }
+  applyAccent(){
+    const a = this.props.accent;
+    if(a) document.documentElement.style.setProperty('--gold', a);
+  }
+  setQuote(i){
+    this.quote = i;
+    const root = this.rootRef.current; if(!root) return;
+    root.querySelectorAll('[data-q]').forEach(el=>{
+      const on = Number(el.getAttribute('data-q')) === i;
+      el.style.opacity = on ? '1' : '0';
+      el.style.pointerEvents = on ? 'auto' : 'none';
+    });
+    root.querySelectorAll('[data-dot]').forEach(el=>{
+      el.style.background = Number(el.getAttribute('data-dot')) === i ? 'var(--ink)' : 'transparent';
+    });
+  }
+  openMenu = () => {
+    const d = this.drawerRef.current; if(!d) return;
+    d.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    if(this.burgerRef.current) this.burgerRef.current.setAttribute('aria-expanded','true');
+  };
+  closeMenu = () => {
+    const d = this.drawerRef.current; if(!d) return;
+    d.style.display = 'none';
+    document.body.style.overflow = '';
+    if(this.burgerRef.current) this.burgerRef.current.setAttribute('aria-expanded','false');
+  };
+  onSubmit = (e) => {
+    e.preventDefault();
+    if(this.thanksRef.current) this.thanksRef.current.style.opacity = '1';
+    if(this.formRef.current) this.formRef.current.reset();
+  };
+  renderVals(){
+    return {
+      rootRef: this.rootRef, navRef: this.navRef, drawerRef: this.drawerRef,
+      burgerRef: this.burgerRef, formRef: this.formRef, thanksRef: this.thanksRef,
+      openMenu: this.openMenu, closeMenu: this.closeMenu, onSubmit: this.onSubmit,
+      showPrices: this.props.showPrices !== false,
+      q0: () => { if(this.timer) clearInterval(this.timer); this.setQuote(0); },
+      q1: () => { if(this.timer) clearInterval(this.timer); this.setQuote(1); },
+      q2: () => { if(this.timer) clearInterval(this.timer); this.setQuote(2); }
+    };
+  }
+}
+</script>
+</body>
+</html>

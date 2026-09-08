@@ -1,0 +1,131 @@
+:root {
+  --ivory: #FBF8F3;
+  --ink: #1A1613;
+  --gold: #B08D57;
+  /* Same family as --gold, darkened for text set directly on ivory/paper: at
+     text sizes, #B08D57-on-ivory measures ~2.9:1 and fails WCAG AA even for
+     large text (3:1). Only used where gold is the text color on a light
+     ground — everywhere else (gold-on-ink, ink-on-gold buttons) already
+     clears 4.5:1 and keeps --gold. */
+  --gold-deep: #8C6E42;
+  --rose: #C9A9A0;
+  --sage: #4A5A4C;
+  --line: rgba(26, 22, 19, .14);
+  --muted: rgba(26, 22, 19, .62);
+  --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --sans: 'Inter', system-ui, -apple-system, sans-serif;
+  /* Reserved for the literal NIART wordmark (header brand, footer mark) — an
+     inscriptional, engraved-plaque feel distinct from the lighter display
+     serif used everywhere else. Marcellus ships one weight (400) only. */
+  --wordmark: 'Marcellus', 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --ease: cubic-bezier(.22, .61, .36, 1);
+
+  /* Woven linen swatches stand in for photography until real assets land. */
+  --linen:
+    repeating-linear-gradient(45deg, rgba(26, 22, 19, .05) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(-45deg, rgba(26, 22, 19, .035) 0 1px, transparent 1px 7px),
+    linear-gradient(150deg, #EFE8DC 0%, #E3D9C8 55%, #D8CDBA 100%);
+  --linen-rose:
+    repeating-linear-gradient(45deg, rgba(26, 22, 19, .05) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(-45deg, rgba(26, 22, 19, .03) 0 1px, transparent 1px 7px),
+    linear-gradient(150deg, #EDE0DA 0%, #DCC8C1 100%);
+  --linen-sage:
+    repeating-linear-gradient(45deg, rgba(26, 22, 19, .06) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(-45deg, rgba(26, 22, 19, .03) 0 1px, transparent 1px 7px),
+    linear-gradient(150deg, #DFE2D8 0%, #C6CDC0 100%);
+  --linen-dark:
+    repeating-linear-gradient(45deg, rgba(251, 248, 243, .055) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(-45deg, rgba(251, 248, 243, .04) 0 1px, transparent 1px 7px),
+    linear-gradient(150deg, #4A403A 0%, #2E2723 60%, #221D1A 100%);
+
+  /* Shared page rhythm — the design canvas repeated these literals everywhere. */
+  --shell-max: 1440px;
+  --shell-pad: clamp(20px, 5vw, 88px);
+  --paper: #F5F0E8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* The hero headline and the oversized section words deliberately overhang the
+   viewport, so horizontal overflow has to be cropped.
+   `clip` rather than `hidden`: `overflow-x: hidden` on the body forces
+   `overflow-y` to compute to `auto`, which turns the body into its own scroll
+   container — the window then stops firing scroll events and every
+   scroll-driven effect on the page freezes. `clip` crops without creating one. */
+html,
+body {
+  overflow-x: clip;
+}
+
+/* Smooth scrolling is handed to the browser rather than to a scroll-hijacking
+   library: the in-page CTAs (#signature, #craft, #floor) glide to their section,
+   while the wheel, trackpad, touch momentum and scrollbar all stay native. The
+   scroll-linked motion is eased separately in `useScrollMotion`. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Clears the fixed header (~62px once scrolled, which is the state it's in
+   for any real anchor jump) so a nav link doesn't tuck the target section's
+   heading underneath it. */
+html {
+  scroll-padding-top: 90px;
+}
+
+body {
+  margin: 0;
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color .3s ease-out;
+}
+
+a:hover {
+  color: var(--gold);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 5px;
+}
+
+figure {
+  margin: 0;
+}
+
+.shell {
+  width: 100%;
+  max-width: var(--shell-max);
+  margin: 0 auto;
+  padding-left: var(--shell-pad);
+  padding-right: var(--shell-pad);
+}
+
+.eyebrow {
+  font-size: 11.5px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+.visually-hidden {
+  position: absolute;
+  left: -9999px;
+}

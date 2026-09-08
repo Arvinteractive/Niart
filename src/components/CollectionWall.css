@@ -1,0 +1,103 @@
+.wall {
+  position: relative;
+  padding: 120px 0 0;
+  overflow: hidden;
+}
+
+.wall__head {
+  margin-bottom: 56px;
+}
+
+.wall__title {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(30px, 3.6vw, 52px);
+  line-height: 1.05;
+  max-width: 20ch;
+}
+
+.wall__stage {
+  --stage-h: 190vh;
+}
+
+.wall__bigword {
+  font-size: clamp(70px, 14vw, 220px);
+  color: rgba(26, 22, 19, .06);
+}
+
+.wall__caption {
+  margin-top: 12px;
+  font-size: 11.5px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.wall__thread {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.wall__final {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  padding: clamp(80px, 12vw, 150px) var(--shell-pad) clamp(90px, 10vw, 140px);
+  background: var(--ivory);
+}
+
+.wall__stitch {
+  display: block;
+  width: 1px;
+  height: clamp(48px, 7vw, 90px);
+  background: var(--gold);
+  margin: 0 auto 40px;
+}
+
+.wall__final-title {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(42px, 9vw, 160px);
+  line-height: .94;
+  letter-spacing: -.025em;
+}
+
+.wall__final-accent {
+  font-style: italic;
+  color: var(--gold-deep);
+  transition-delay: .12s;
+}
+
+.wall__final-actions {
+  margin-top: clamp(36px, 5vw, 64px);
+}
+
+.wall__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--ink);
+  color: var(--ivory);
+  padding: 20px 40px;
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.wall__cta:hover {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+@media (max-width: 900px) {
+  .wall__final {
+    padding: 80px 20px;
+  }
+}

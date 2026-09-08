@@ -1,0 +1,263 @@
+/* Motion primitives, driven by the hooks in src/hooks.
+   Elements opt in with a data attribute; the hooks add `.in` / `.on` / `.live`. */
+
+/* Fade + rise ------------------------------------------------------------ */
+[data-r] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .75s var(--ease), transform .75s var(--ease);
+  will-change: opacity, transform;
+}
+
+[data-r].in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Line-by-line type reveal ----------------------------------------------- */
+[data-lines] .ln {
+  display: block;
+  overflow: hidden;
+}
+
+[data-lines] .ln > span {
+  display: block;
+  transform: translateY(112%);
+  transition: transform 1s var(--ease);
+}
+
+[data-lines].in .ln > span {
+  transform: none;
+}
+
+/* Image wipe -------------------------------------------------------------- */
+[data-mask] {
+  overflow: hidden;
+}
+
+[data-mask] .mi {
+  clip-path: inset(100% 0 0 0);
+  transform: scale(1.07);
+  filter: blur(12px);
+  transition: clip-path 1.2s var(--ease), transform 1.4s var(--ease), filter 1s ease-out;
+}
+
+[data-mask].in .mi {
+  clip-path: inset(0 0 0 0);
+  transform: none;
+  filter: none;
+}
+
+/* Drawn thread ------------------------------------------------------------ */
+[data-thread] [data-draw] {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.7s var(--ease) .25s;
+}
+
+[data-thread].in [data-draw] {
+  stroke-dashoffset: 0;
+}
+
+[data-thread] [data-node] {
+  opacity: 0;
+  transition: opacity .6s ease-out 1.5s;
+}
+
+[data-thread].in [data-node] {
+  opacity: 1;
+}
+
+/* Hover zoom -------------------------------------------------------------- */
+[data-zoom] {
+  overflow: hidden;
+}
+
+[data-zoom] .zi {
+  transition: transform 1s var(--ease);
+  will-change: transform;
+}
+
+[data-zoom]:hover .zi,
+[data-zoom]:focus-within .zi {
+  transform: scale(1.045);
+}
+
+/* Scattered stage: dim siblings on hover ----------------------------------
+   Gated on a hover-capable pointer. On touch there is nothing to hover away
+   from, so the cards stay at full strength and their captions stay legible
+   instead of waiting for a hover that never comes. */
+[data-item] .glow {
+  opacity: 0;
+  transition: opacity .6s ease-out;
+}
+
+@keyframes shimmer {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+
+@media (hover: hover) {
+  [data-stage] [data-item] {
+    transition: opacity .6s var(--ease), filter .6s var(--ease);
+  }
+
+  /* Dim the *siblings* of the card under the pointer.
+
+     This keys off a card being hovered, not off the stage box. The stages are
+     mostly empty space between scattered pieces, so `[data-stage]:hover` left
+     every card sitting at .38 whenever the pointer was in a gap — nothing was
+     hovered to bring itself back, and the section only recovered once the
+     pointer left it entirely.
+
+     The `:not()` excludes the hovered card rather than relying on the rule
+     below to win: `:has()` takes the specificity of its argument, so this
+     selector outweighs a plain `[data-item]:hover` and would otherwise dim the
+     very card being pointed at. */
+  [data-stage]:has([data-item]:hover, [data-item]:focus-within)
+    [data-item]:not(:hover, :focus-within) {
+    opacity: .38;
+    filter: saturate(.55);
+  }
+
+  [data-stage] [data-item]:hover,
+  [data-stage] [data-item]:focus-within {
+    z-index: 6;
+  }
+
+  [data-item] .meta {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .5s var(--ease), transform .55s var(--ease);
+  }
+
+  [data-item]:hover .meta,
+  [data-item]:focus-within .meta {
+    opacity: 1;
+    transform: none;
+  }
+
+  [data-item]:hover .glow,
+  [data-item]:focus-within .glow {
+    opacity: 1;
+  }
+
+  [data-item]:hover .glow .band {
+    animation: shimmer 2.6s linear infinite;
+  }
+}
+
+/* Scrubbed labels --------------------------------------------------------- */
+[data-lab] {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .6s var(--ease), transform .6s var(--ease);
+}
+
+[data-lab].on {
+  opacity: 1;
+  transform: none;
+}
+
+[data-lab] .tick {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .7s var(--ease) .12s;
+}
+
+[data-lab].on .tick {
+  transform: scaleX(1);
+}
+
+/* Carousel copy ----------------------------------------------------------- */
+[data-slide] .cl {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .65s var(--ease), transform .75s var(--ease);
+}
+
+[data-slide].live .cl {
+  opacity: 1;
+  transform: none;
+}
+
+/* Interaction affordances ------------------------------------------------- */
+[data-mag] {
+  transition: transform .45s var(--ease), background .45s ease-out, color .45s ease-out, border-color .45s ease-out;
+  will-change: transform;
+}
+
+[data-arrow] .ar {
+  display: inline-block;
+  transition: transform .45s var(--ease);
+}
+
+[data-arrow]:hover .ar {
+  transform: translateX(7px);
+}
+
+[data-underline] {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size .45s var(--ease);
+}
+
+[data-underline]:hover {
+  background-size: 0% 1px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: var(--to, 1); }
+}
+
+@keyframes kb {
+  from { transform: scale(1.06); }
+  to { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  [data-r] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  [data-lines] .ln > span {
+    transform: none !important;
+  }
+
+  [data-mask] .mi {
+    clip-path: none !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  [data-thread] [data-draw] {
+    stroke-dashoffset: 0 !important;
+  }
+
+  [data-thread] [data-node] {
+    opacity: 1 !important;
+  }
+
+  [data-lab] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  [data-lab] .tick {
+    transform: scaleX(1) !important;
+  }
+
+  [data-slide] .cl {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

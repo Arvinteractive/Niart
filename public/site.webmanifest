@@ -1,0 +1,12 @@
+{
+  "name": "NIART — Stitched into existence",
+  "short_name": "NIART",
+  "description": "Hand embroidery — zardozi, aari and kamdani worked by hand on silk.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FBF8F3",
+  "theme_color": "#1A1613",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

@@ -1,0 +1,133 @@
+/* A tall scroll track: the sticky stage inside it is scrubbed by useScrollMotion,
+   pulling the macro photograph back from 2.5x to full frame. */
+.craft {
+  position: relative;
+  height: 340vh;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.craft__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.craft__image {
+  position: absolute;
+  inset: 0;
+  background:
+    var(--image) center 44% / cover no-repeat,
+    var(--linen);
+  transform: scale(2.5);
+  transform-origin: 52% 44%;
+  will-change: transform;
+}
+
+.craft__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(26, 22, 19, .82) 0%,
+    rgba(26, 22, 19, .18) 46%,
+    rgba(26, 22, 19, .5) 100%
+  );
+}
+
+.craft__labels {
+  position: absolute;
+  inset: 0;
+}
+
+.craft__label {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+.craft__tick {
+  display: block;
+  width: var(--tick);
+  height: 1px;
+  background: var(--gold);
+}
+
+.craft__content {
+  position: relative;
+  z-index: 3;
+}
+
+.craft__eyebrow {
+  margin: 0 0 22px;
+  color: var(--gold);
+}
+
+.craft__title {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(40px, 8.6vw, 150px);
+  line-height: .92;
+  letter-spacing: -.02em;
+  max-width: 14ch;
+}
+
+.craft__copy {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(20px, 3vw, 56px);
+  max-width: 900px;
+  margin-top: clamp(24px, 3vw, 44px);
+}
+
+.craft__copy p {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.8;
+  color: rgba(245, 240, 232, .7);
+}
+
+/* Below 900px there is no scrub, so the pinned callouts are replaced by a
+   plain list of the same terms. */
+.craft__list {
+  display: none;
+  padding: 0 20px 80px;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+@media (max-width: 900px) {
+  .craft {
+    height: auto;
+  }
+
+  .craft__stage {
+    position: static;
+    height: auto;
+    min-height: 76svh;
+    padding: 104px 0;
+  }
+
+  .craft__labels {
+    display: none;
+  }
+
+  .craft__list {
+    display: grid;
+  }
+}

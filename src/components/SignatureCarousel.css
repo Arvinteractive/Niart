@@ -1,0 +1,239 @@
+.carousel {
+  position: relative;
+  min-height: 100svh;
+  background: #151210;
+  color: var(--paper);
+  overflow: hidden;
+  transition: background .9s var(--ease);
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+.carousel--dragging {
+  cursor: grabbing;
+}
+
+.carousel__deck {
+  position: relative;
+  display: grid;
+  align-items: stretch;
+}
+
+.carousel__slide {
+  grid-area: 1 / 1;
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity .6s var(--ease);
+}
+
+.carousel__slide--initial {
+  opacity: 1;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.carousel__grid {
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(24px, 4vw, 64px);
+  max-width: var(--shell-max);
+  margin: 0 auto;
+  padding: 110px var(--shell-pad) 128px;
+}
+
+.carousel__copy {
+  will-change: transform;
+}
+
+.carousel__index {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(44px, 6vw, 86px);
+  line-height: 1;
+  color: rgba(245, 240, 232, .22);
+}
+
+.carousel__title {
+  margin: 14px 0 0;
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(32px, 4.4vw, 66px);
+  line-height: 1.02;
+  letter-spacing: -.015em;
+  transition-delay: .08s;
+}
+
+.carousel__spec {
+  margin: 34px 0 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 28px;
+  row-gap: 12px;
+  font-size: 13.5px;
+  transition-delay: .16s;
+}
+
+.carousel__spec dt {
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, .66);
+  font-size: 11px;
+  align-self: center;
+}
+
+.carousel__spec dd {
+  margin: 0;
+}
+
+.carousel__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 40px;
+  border: 1px solid rgba(245, 240, 232, .3);
+  padding: 16px 30px;
+  font-size: 11.5px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  transition-delay: .24s;
+}
+
+.carousel__cta:hover {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--paper);
+}
+
+.carousel__figure {
+  position: relative;
+  height: min(74vh, 660px);
+  overflow: hidden;
+  background: #0F0D0B;
+  will-change: transform, clip-path;
+}
+
+.carousel__image {
+  position: absolute;
+  inset: 0;
+  background:
+    var(--image) center / cover no-repeat,
+    var(--swatch);
+}
+
+/* Footer rail --------------------------------------------------------------- */
+.carousel__rail {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 8;
+  max-width: var(--shell-max);
+  margin: 0 auto;
+  padding: 0 var(--shell-pad) 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.carousel__rail-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.carousel__brand,
+.carousel__counter {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: .1em;
+}
+
+.carousel__brand {
+  color: rgba(245, 240, 232, .5);
+}
+
+.carousel__counter {
+  color: rgba(245, 240, 232, .75);
+}
+
+.carousel__track {
+  position: relative;
+  display: block;
+  width: clamp(90px, 16vw, 220px);
+  height: 1px;
+  background: rgba(245, 240, 232, .2);
+}
+
+.carousel__progress {
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  transform-origin: left center;
+  transition: transform .7s var(--ease);
+}
+
+.carousel__dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.carousel__dot {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 32px;
+  background: none;
+  border: none;
+  padding: 8px 4px;
+  font-size: 11px;
+  letter-spacing: .14em;
+  color: rgba(245, 240, 232, .64);
+  transition: color .4s ease-out;
+}
+
+.carousel__dot[aria-current='true'] {
+  color: var(--paper);
+}
+
+.carousel__dot:hover {
+  color: var(--gold);
+}
+
+.carousel__hint {
+  margin-left: 12px;
+  font-size: 10.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, .62);
+}
+
+@media (max-width: 1024px) {
+  .carousel__grid {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding-top: 96px;
+    padding-bottom: 112px;
+  }
+}
+
+@media (max-width: 760px) {
+  .carousel {
+    min-height: auto;
+  }
+
+  .carousel__figure {
+    height: 52vh;
+  }
+
+  .carousel__index {
+    font-size: 44px;
+  }
+}
