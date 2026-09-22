@@ -28,8 +28,8 @@ export function FloorPieces() {
             The pieces on the floor this month
           </h2>
           <p className="floor__note">
-            Four in progress, photographed where they hang. Hover a piece to read its
-            file.
+            Four in progress on the Coimbatore studio floor, photographed where they
+            hang. Hover a piece to read its file.
           </p>
         </div>
 

@@ -1,26 +1,52 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-IN">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#1A1613" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>NIART Designer Studio — Aari &amp; Zardozi Embroidery in Coimbatore</title>
     <meta
       name="description"
-      content="NIART — hand embroidery. Zardozi, aari and kamdani worked by hand on silk."
+      content="NIART Designer Studio, Coimbatore — bespoke bridal wear, aari and zardozi hand embroidery, ethnic and traditional outfits, kids' wear, custom costume design and saree pre-pleating."
+    />
+    <!-- Ignored by Google, still read by Bing, Yandex and several Indian
+         directory crawlers that scrape the tag. Kept to the terms the studio
+         actually serves — stuffing it with unrelated towns would be a spam
+         signal, not a ranking one. -->
+    <meta
+      name="keywords"
+      content="niart, niart embroidery, niart designer studio, niart coimbatore, embroidery in coimbatore, aari embroidery coimbatore, maggam work coimbatore, zardozi embroidery, hand embroidery studio coimbatore, bridal blouse embroidery coimbatore, bridal wear coimbatore, custom costume design coimbatore, saree pre pleating coimbatore, kids wear embroidery, designer boutique coimbatore"
+    />
+    <meta name="author" content="NIART Designer Studio" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
     />
     <link rel="canonical" href="https://niart.in/" />
-    <title>NIART — Stitched into existence</title>
+
+    <!-- Local-pack signals. The coordinates are Coimbatore city centre, not a
+         street address: the studio's exact address was never confirmed, and a
+         made-up one would poison every listing that scrapes this. -->
+    <meta name="geo.region" content="IN-TN" />
+    <meta name="geo.placename" content="Coimbatore, Tamil Nadu" />
+    <meta name="geo.position" content="11.0168;76.9558" />
+    <meta name="ICBM" content="11.0168, 76.9558" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="NIART" />
+    <meta property="og:site_name" content="NIART Designer Studio" />
     <meta property="og:locale" content="en_IN" />
     <meta property="og:url" content="https://niart.in/" />
-    <meta property="og:title" content="NIART — Stitched into existence" />
+    <meta
+      property="og:title"
+      content="NIART Designer Studio — Aari &amp; Zardozi Embroidery in Coimbatore"
+    />
     <meta
       property="og:description"
-      content="NIART — hand embroidery. Zardozi, aari and kamdani worked by hand on silk."
+      content="Bespoke bridal wear, aari and zardozi hand embroidery, ethnic and kids' wear, custom costume design and saree pre-pleating — hand-worked in Coimbatore."
     />
     <meta property="og:image" content="https://niart.in/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
@@ -28,10 +54,13 @@
     <meta property="og:image:alt" content="Macro detail of gold zardozi embroidery on linen" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="NIART — Stitched into existence" />
+    <meta
+      name="twitter:title"
+      content="NIART Designer Studio — Aari &amp; Zardozi Embroidery in Coimbatore"
+    />
     <meta
       name="twitter:description"
-      content="NIART — hand embroidery. Zardozi, aari and kamdani worked by hand on silk."
+      content="Bespoke bridal wear, aari and zardozi hand embroidery, ethnic and kids' wear, custom costume design and saree pre-pleating — hand-worked in Coimbatore."
     />
     <meta name="twitter:image" content="https://niart.in/og-image.jpg" />
 
@@ -41,9 +70,194 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&family=Marcellus&display=swap"
       rel="stylesheet"
     />
+
+    <!--
+      Structured data lives in the static HTML, not in React: the page is
+      client-rendered, and a crawler that gives up before executing the bundle
+      still gets the entity, the service list and the city from here.
+
+      `alternateName` carries every spelling a search for this studio actually
+      uses — "Niart", "Niart Embroidery", "NIART Designer Studio" — so the
+      brand queries resolve to one entity instead of three.
+
+      Deliberately absent: `telephone`, `streetAddress`, `openingHours`,
+      `aggregateRating`. None of them were ever confirmed. Invented values are
+      what gets a business's Knowledge Panel suppressed, and a fabricated
+      rating is a manual-action risk. Fill them in alongside the real details
+      in `src/data/contact.js`.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": ["LocalBusiness", "ClothingStore"],
+            "@id": "https://niart.in/#studio",
+            "name": "NIART Designer Studio",
+            "alternateName": [
+              "NIART",
+              "Niart",
+              "Niart Embroidery",
+              "Niart Designer Studio",
+              "NIART Embroidery Studio"
+            ],
+            "url": "https://niart.in/",
+            "image": "https://niart.in/og-image.jpg",
+            "logo": "https://niart.in/apple-touch-icon.png",
+            "email": "hello@niart.in",
+            "description": "NIART Designer Studio is a custom costume and fashion design house in Coimbatore offering bespoke bridal wear, aari and zardozi hand embroidery, ethnic and traditional outfits, kids' wear, custom garment styling and saree pre-pleating.",
+            "priceRange": "₹₹₹",
+            "currenciesAccepted": "INR",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Coimbatore",
+              "addressRegion": "Tamil Nadu",
+              "addressCountry": "IN"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 11.0168,
+              "longitude": 76.9558
+            },
+            "areaServed": [
+              { "@type": "City", "name": "Coimbatore" },
+              { "@type": "State", "name": "Tamil Nadu" },
+              { "@type": "Country", "name": "India" }
+            ],
+            "knowsAbout": [
+              "Aari embroidery",
+              "Maggam work",
+              "Zardozi embroidery",
+              "Kamdani",
+              "Bridal blouse embroidery",
+              "Bridal lehenga design",
+              "Kanchipuram silk saree styling",
+              "Saree pre-pleating",
+              "Custom costume design",
+              "Kids' ethnic wear"
+            ],
+            "sameAs": ["https://www.instagram.com/niart_designerstudio/"],
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Embroidery and custom costume services in Coimbatore",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Bespoke bridal wear",
+                    "serviceType": "Bridal wear design",
+                    "description": "Custom bridal blouses, lehengas and sarees, hand-embroidered to measure in Coimbatore."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Aari embroidery and maggam work",
+                    "serviceType": "Aari embroidery",
+                    "description": "Hand aari and maggam work on blouses, lehengas and sarees, worked on the adda frame."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Zardozi and kamdani hand embroidery",
+                    "serviceType": "Hand embroidery",
+                    "description": "Gold metal thread zardozi, kamdani and stonework couched by hand onto silk."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Ethnic and traditional wear",
+                    "serviceType": "Ethnic wear tailoring",
+                    "description": "Sarees, sherwanis, jacket sets and traditional outfits cut, embroidered and styled to order."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Kids' wear",
+                    "serviceType": "Kids' wear design",
+                    "description": "Hand-embroidered little lehengas, dresses and festive outfits for children."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Saree pre-pleating",
+                    "serviceType": "Saree pre-pleating",
+                    "description": "Saree pre-pleating and pinning so a drape holds its fall through a full wedding day."
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://niart.in/#website",
+            "url": "https://niart.in/",
+            "name": "NIART Designer Studio",
+            "inLanguage": "en-IN",
+            "publisher": { "@id": "https://niart.in/#studio" }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://niart.in/#webpage",
+            "url": "https://niart.in/",
+            "name": "NIART Designer Studio — Aari & Zardozi Embroidery in Coimbatore",
+            "description": "Bespoke bridal wear, aari and zardozi hand embroidery, ethnic and kids' wear, custom costume design and saree pre-pleating, hand-worked in Coimbatore.",
+            "isPartOf": { "@id": "https://niart.in/#website" },
+            "about": { "@id": "https://niart.in/#studio" },
+            "primaryImageOfPage": "https://niart.in/og-image.jpg",
+            "inLanguage": "en-IN"
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+
+    <!--
+      The crawlable floor. React mounts into #root and never touches this, so
+      a bot that indexes the raw HTML — or a visitor with JS off — still gets
+      the studio's name, trade and city as real markup rather than an empty
+      div. Every claim here is repeated verbatim by the rendered page, so this
+      is a fallback, not hidden text.
+    -->
+    <noscript>
+      <div
+        style="max-width: 720px; margin: 0 auto; padding: 64px 24px; font-family: Georgia, serif; line-height: 1.7; color: #1a1613"
+      >
+        <h1>NIART Designer Studio — hand embroidery in Coimbatore</h1>
+        <p>
+          NIART Designer Studio is a custom costume and fashion design house in Coimbatore,
+          Tamil Nadu. Every piece is worked by hand on the adda frame — aari embroidery and
+          maggam work, gold zardozi, kamdani and stonework on silk.
+        </p>
+        <h2>What the studio makes</h2>
+        <ul>
+          <li>Bespoke bridal wear — bridal blouses, lehengas and sarees embroidered to measure</li>
+          <li>Aari embroidery and maggam work</li>
+          <li>Zardozi and kamdani hand embroidery</li>
+          <li>Ethnic and traditional wear, cut and styled to order</li>
+          <li>Kids' wear — little lehengas, dresses and festive outfits</li>
+          <li>Saree pre-pleating and draping</li>
+          <li>Custom costume design and garment styling</li>
+        </ul>
+        <p>
+          Enquiries: <a href="mailto:hello@niart.in">hello@niart.in</a> · Latest work on
+          <a href="https://www.instagram.com/niart_designerstudio/" rel="noopener">Instagram</a>.
+        </p>
+      </div>
+    </noscript>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

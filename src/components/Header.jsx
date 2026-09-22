@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import niartMark from '../assets/niart-mark.png';
 import { navItems } from '../data/nav';
 import { useHeaderScroll } from '../hooks/useHeaderScroll';
 import { useMagnetic } from '../hooks/useMagnetic';
@@ -31,6 +32,7 @@ export function Header({ reduced }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const searchInputRef = useRef(null);
+  const burgerRef = useRef(null);
   const bagRef = useMagnetic(reduced);
 
   useEffect(() => {
@@ -53,7 +55,9 @@ export function Header({ reduced }) {
   };
 
   return (
-    <header className={`hdr${scrolled ? ' hdr--scrolled' : ''}`}>
+    <header
+      className={`hdr${scrolled ? ' hdr--scrolled' : ''}${menuOpen ? ' hdr--menu-open' : ''}`}
+    >
       <span className="hdr__texture" aria-hidden="true" />
 
       <svg
@@ -75,9 +79,23 @@ export function Header({ reduced }) {
       </svg>
 
       <div className="shell hdr__bar">
-        <a className="hdr__brand" data-r href="#" aria-label="NIART Embroidery, back to top">
-          <span className="hdr__word">NIART</span>
-          <span className="hdr__est">Embroidery · Est. 2008</span>
+        {/* The brand links to "/" rather than "#": a bare "#" is a dead link
+            to a crawler, and the logo is the one internal link on every page
+            that should point at the canonical home URL. */}
+        <a
+          className="hdr__brand"
+          data-r
+          href="/"
+          aria-label="NIART Designer Studio, Coimbatore — home"
+        >
+          <img className="hdr__mark" src={niartMark} alt="" width="256" height="256" />
+          <span className="hdr__brand-text">
+            <span className="hdr__word">NIART</span>
+            {/* The city joins the masthead line, and the founding year stays:
+                "Coimbatore · Est. 2008" is both the local signal every page
+                needs and the trust signal the line already carried. */}
+            <span className="hdr__est">Coimbatore · Est. 2008</span>
+          </span>
         </a>
 
         <nav className="hdr__nav" aria-label="Primary">
@@ -137,6 +155,7 @@ export function Header({ reduced }) {
           </a>
 
           <button
+            ref={burgerRef}
             type="button"
             className={`hdr__burger${menuOpen ? ' hdr__burger--active' : ''}`}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
@@ -150,7 +169,12 @@ export function Header({ reduced }) {
         </div>
       </div>
 
-      <HeaderMenu open={menuOpen} onClose={() => setMenuOpen(false)} reduced={reduced} />
+      <HeaderMenu
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        reduced={reduced}
+        triggerRef={burgerRef}
+      />
     </header>
   );
 }

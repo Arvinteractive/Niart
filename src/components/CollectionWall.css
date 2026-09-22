@@ -97,6 +97,12 @@
 }
 
 @media (max-width: 900px) {
+  /* Same as the floor stage: the fixed viewport height is a desktop-only frame
+     for the absolute placement, and it clips the collapsed grid. */
+  .wall__stage {
+    --stage-h: auto;
+  }
+
   .wall__final {
     padding: 80px 20px;
   }

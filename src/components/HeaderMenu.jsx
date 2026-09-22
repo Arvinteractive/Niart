@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import {
+  addaFrameWorkshop,
   bg,
   bridalBlouseMaroonZardozi,
   bridalLehengaEmerald,
@@ -30,21 +31,27 @@ const VISUALS = {
     alt: 'Maroon bridal blouse on a hanger, gold zardozi and a pearl drop fringe',
     swatch: 'var(--linen-rose)',
   },
+  '#services': {
+    image: addaFrameWorkshop,
+    alt: 'A blouse panel stretched on the adda frame, half worked in gold aari embroidery',
+    swatch: 'var(--linen)',
+  },
 };
 
 const FOCUSABLE = 'a[href], button:not([disabled])';
 
-export function HeaderMenu({ open, onClose, reduced }) {
+export function HeaderMenu({ open, onClose, reduced, triggerRef }) {
   const [active, setActive] = useState(0);
   const dialogRef = useRef(null);
-  const closeRef = useRef(null);
   const restoreFocusRef = useRef(null);
 
   useEffect(() => {
     if (!open) return undefined;
 
     restoreFocusRef.current = document.activeElement;
-    closeRef.current?.focus();
+    // The header burger is the close control, so it is what gets focus — it
+    // lives outside this dialog but is the first stop in the trap below.
+    triggerRef?.current?.focus();
 
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
@@ -59,8 +66,11 @@ export function HeaderMenu({ open, onClose, reduced }) {
       }
       if (e.key !== 'Tab') return;
 
-      const nodes = dialogRef.current?.querySelectorAll(FOCUSABLE);
-      if (!nodes || nodes.length === 0) return;
+      const nodes = [
+        triggerRef?.current,
+        ...(dialogRef.current?.querySelectorAll(FOCUSABLE) ?? []),
+      ].filter(Boolean);
+      if (nodes.length === 0) return;
       const first = nodes[0];
       const last = nodes[nodes.length - 1];
 
@@ -81,7 +91,7 @@ export function HeaderMenu({ open, onClose, reduced }) {
       // practice) rather than dropping it back to the top of the document.
       restoreFocusRef.current?.focus?.();
     };
-  }, [open, onClose]);
+  }, [open, onClose, triggerRef]);
 
   return (
     <div
@@ -93,11 +103,6 @@ export function HeaderMenu({ open, onClose, reduced }) {
       aria-hidden={!open}
     >
       <span className="hmenu__texture" aria-hidden="true" />
-
-      <button ref={closeRef} type="button" className="hmenu__close" onClick={onClose} aria-label="Close menu">
-        <span className="hmenu__close-line" />
-        <span className="hmenu__close-line" />
-      </button>
 
       <div className="shell hmenu__inner">
         <nav className="hmenu__list" aria-label="Full site menu">

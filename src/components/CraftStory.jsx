@@ -60,7 +60,7 @@ export function CraftStory({
             <p>
               A zardozi knot is 1.2mm across. There are roughly forty thousand of them
               on a Niart bridal hem, and every one is pulled to the same tension by
-              hand.
+              hand — aari, kamdani or gold work, the tension is the whole discipline.
             </p>
             <p>
               Machines can copy the pattern. They cannot copy the tension, and that is

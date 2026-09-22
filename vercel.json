@@ -17,7 +17,7 @@
       ]
     },
     {
-      "source": "/(favicon.svg|site.webmanifest|og-image.jpg)",
+      "source": "/(favicon.png|site.webmanifest|og-image.jpg|robots.txt|sitemap.xml)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=86400" }
       ]

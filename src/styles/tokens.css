@@ -69,11 +69,12 @@ body {
   }
 }
 
-/* Clears the fixed header (~62px once scrolled, which is the state it's in
-   for any real anchor jump) so a nav link doesn't tuck the target section's
-   heading underneath it. */
+/* Lands an anchor jump flush under the fixed header rather than short of it:
+   exactly the compact header's height (18px bar padding twice + the 34px brand
+   mark + its 1px rule), which is the state it is in for any real anchor jump.
+   Any more and the section starts below the fold of its own top edge. */
 html {
-  scroll-padding-top: 90px;
+  scroll-padding-top: 71px;
 }
 
 body {

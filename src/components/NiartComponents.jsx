@@ -3,6 +3,7 @@ import { Header } from './Header';
 import { Hero } from './Hero';
 import { FloorPieces } from './FloorPieces';
 import { CraftStory } from './CraftStory';
+import { Services } from './Services';
 import { SignatureCarousel } from './SignatureCarousel';
 import { CollectionWall } from './CollectionWall';
 import { Footer } from './Footer';
@@ -75,6 +76,8 @@ export function NiartComponents({
           craftHeadRef={craftHeadRef}
           craftCopyRef={craftCopyRef}
         />
+
+        <Services reduced={reduced} />
 
         <SignatureCarousel
           carRef={carRef}

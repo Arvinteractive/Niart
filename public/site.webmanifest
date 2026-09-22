@@ -1,12 +1,15 @@
 {
-  "name": "NIART — Stitched into existence",
+  "name": "NIART Designer Studio — Embroidery in Coimbatore",
   "short_name": "NIART",
-  "description": "Hand embroidery — zardozi, aari and kamdani worked by hand on silk.",
+  "description": "Bespoke bridal wear, aari and zardozi hand embroidery, ethnic and kids' wear, custom costume design and saree pre-pleating — hand-worked in Coimbatore.",
+  "lang": "en-IN",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FBF8F3",
   "theme_color": "#1A1613",
+  "categories": ["shopping", "lifestyle"],
   "icons": [
-    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+    { "src": "/favicon.png", "sizes": "64x64", "type": "image/png", "purpose": "any" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
   ]
 }

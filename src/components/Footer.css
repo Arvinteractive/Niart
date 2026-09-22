@@ -230,12 +230,35 @@
   opacity: .85;
 }
 
+/* The only address the studio has confirmed. `<address>` rather than a
+   paragraph so it is machine-readable as contact information — the same pair
+   of facts the LocalBusiness JSON-LD in index.html declares. */
+.ftr__address {
+  display: block;
+  margin-top: 18px;
+  font-style: normal;
+  font-size: 12.5px;
+  line-height: 1.9;
+  letter-spacing: .04em;
+  color: rgba(245, 240, 232, .55);
+}
+
 /* Finale -------------------------------------------------------------- */
 .ftr__finale {
   position: relative;
   z-index: 1;
   text-align: center;
   padding: clamp(30px, 5vw, 60px) var(--shell-pad) 0;
+}
+
+/* The seal sits above the wordmark, a maker's mark stamped on the closing
+   frame. It is already a dark disc, so it sits on the ink without a plate. */
+.ftr__mark {
+  display: block;
+  width: clamp(58px, 8vw, 86px);
+  height: auto;
+  margin: 0 auto clamp(18px, 2.4vw, 30px);
+  border-radius: 50%;
 }
 
 .ftr__wordmark {
@@ -264,9 +287,14 @@
 }
 
 .ftr__tagline {
-  margin: 16px 0 0;
+  /* Now a full trade-and-city line rather than three words, so it is capped
+     and centred: at .3em tracking an uncapped line runs past the wordmark on
+     a laptop and off the screen on a phone. */
+  margin: 16px auto 0;
+  max-width: 46ch;
   font-size: 11px;
-  letter-spacing: .3em;
+  letter-spacing: .22em;
+  line-height: 2;
   text-transform: uppercase;
   color: rgba(245, 240, 232, .5);
   transition-delay: .3s;

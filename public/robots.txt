@@ -1,4 +1,26 @@
+# NIART Designer Studio — niart.in
+# Everything here is public marketing content: nothing to gate.
+
 User-agent: *
+Allow: /
+
+# Answer engines are explicitly welcomed rather than left to the wildcard.
+# A studio this size gets found through them as much as through a blue link,
+# and being quotable in an AI answer for "embroidery studio in Coimbatore" is
+# worth more than the crawl budget it costs.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
 Allow: /
 
 Sitemap: https://niart.in/sitemap.xml

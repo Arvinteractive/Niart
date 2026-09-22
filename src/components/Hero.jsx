@@ -38,10 +38,19 @@ export function Hero({ heroRef, threadRef, reduced }) {
         <div className="hero__copy">
           <p className="eyebrow hero__eyebrow" data-r>
             <span className="hero__rule" />
-            Zardozi · Piece No. 01
+            Zardozi &amp; Aari · Coimbatore
           </p>
 
           <h1 id="hero-title" className="hero__title" data-lines>
+            {/* The wordmark and the trade, read aloud before the display line
+                and indexed with it. A screen reader landing on "Stitched into
+                existence." alone has no idea whose studio this is or what it
+                makes; neither does a crawler. Same sentence the <title> and
+                the noscript block carry, so nothing here is hidden that the
+                page does not also say in plain sight. */}
+            <span className="visually-hidden">
+              NIART Designer Studio — hand embroidery in Coimbatore.{' '}
+            </span>
             <span className="ln">
               <span style={{ transitionDelay: '.25s' }}>Stitched</span>
             </span>
@@ -56,9 +65,9 @@ export function Hero({ heroRef, threadRef, reduced }) {
           </h1>
 
           <p className="hero__lede" data-r>
-            Six hundred hours on the adda frame. Gold metal thread couched onto raw
-            Kanchipuram silk, one knot at a time, by four hands that have done nothing
-            else for eleven years.
+            Six hundred hours on the adda frame in Coimbatore. Gold zardozi and aari
+            worked into raw Kanchipuram silk, one knot at a time, by four hands that
+            have done nothing else for eleven years.
           </p>
 
           <div className="hero__actions" data-r>

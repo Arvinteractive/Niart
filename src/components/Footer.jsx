@@ -1,15 +1,25 @@
 import { useRef, useState } from 'react';
-import { CONTACT, mailtoHref } from '../data/contact';
+import niartMark from '../assets/niart-mark.png';
+import { CONTACT, localityLine, mailtoHref } from '../data/contact';
 import { navItems } from '../data/nav';
 import './Footer.css';
 
 const EMAIL = CONTACT.email;
 
-const socialLinks = [
-  { label: 'Instagram', href: '#' },
-  { label: 'Pinterest', href: '#' },
-  { label: 'LinkedIn', href: '#' },
-];
+/**
+ * Only profiles that actually exist get rendered. A `href="#"` social link
+ * costs twice over: the visitor clicks it and lands back on the same page,
+ * and a crawler reads a dead outbound link where the site's strongest
+ * off-site signal should be. Instagram is where the studio's work actually
+ * lives, so it is the one link here — and the same URL is declared as
+ * `sameAs` in the structured data in index.html.
+ *
+ * Add Pinterest or a Google Business Profile back the moment there is a real
+ * URL for them; both are worth having, neither is worth faking.
+ */
+const socialLinks = [{ label: 'Instagram', href: CONTACT.instagram }].filter(
+  (social) => social.href,
+);
 
 function CopyIcon() {
   return (
@@ -109,7 +119,12 @@ export function Footer({ reduced }) {
           <ul className="ftr__social-list">
             {socialLinks.map((social) => (
               <li key={social.label}>
-                <a className="ftr__social-link" href={social.href}>
+                <a
+                  className="ftr__social-link"
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener me"
+                >
                   {social.label}
                   <span className="ftr__social-arrow" aria-hidden="true">&rarr;</span>
                 </a>
@@ -136,12 +151,20 @@ export function Footer({ reduced }) {
           <span className={`ftr__copy-hint${copied ? ' ftr__copy-hint--visible' : ''}`} role="status">
             Copied to clipboard
           </span>
+          <address className="ftr__address">
+            NIART Designer Studio
+            <br />
+            {localityLine}
+          </address>
         </div>
       </div>
 
       <div className="ftr__finale">
+        <img className="ftr__mark" data-r src={niartMark} alt="" width="256" height="256" />
         <p className="ftr__wordmark" data-r>NIART</p>
-        <p className="ftr__tagline" data-r>Embroidery / Textile / Craft</p>
+        <p className="ftr__tagline" data-r>
+          Aari &amp; Zardozi Embroidery · Bridal &amp; Custom Costume Design · {CONTACT.locality}
+        </p>
       </div>
 
       <div className="ftr__legal">

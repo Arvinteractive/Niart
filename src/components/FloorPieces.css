@@ -82,6 +82,21 @@
   padding-top: 6px;
 }
 
+@media (max-width: 900px) {
+  /* The stage collapses to a grid here, so the desktop cap has to go with it —
+     left on, it clips the grid mid-piece and the next section rides over the
+     overflow. One piece per row: the 3/4 and 16/11 crops are too different to
+     pair up at tablet width. */
+  .floor__stage {
+    max-height: none;
+    grid-template-columns: 1fr;
+  }
+
+  .floor__stage .stage__item--wide {
+    grid-column: auto;
+  }
+}
+
 @media (max-width: 760px) {
   .floor {
     padding-top: 76px;
