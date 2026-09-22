@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Image masters. The site imports the WebP encoded from these (see
+# src/assets/images.js); the PNG originals are large and never reach the
+# bundle, so they stay local.
+src/assets/niart/*.png

@@ -1,34 +1,34 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   bg,
-  bridalLehengaZardozi,
-  denimJacketGoldResham,
-  embroideryDetailMacro,
-  ivoryAtelierJacket,
+  bridalBlouseMaroonZardozi,
+  bridalLehengaEmerald,
+  sareeRedBanarasi,
+  zardoziMacroNavy,
 } from '../assets/images';
 import { navItems } from '../data/nav';
 import './HeaderMenu.css';
 
 const VISUALS = {
   '#collection': {
-    image: bridalLehengaZardozi,
-    alt: 'Bridal lehenga spread open, gold zardozi worked across the skirt',
-    swatch: 'var(--linen)',
+    image: bridalLehengaEmerald,
+    alt: 'Emerald bridal lehenga on a dress form, gold zardozi across the skirt',
+    swatch: 'var(--linen-sage)',
   },
   '#signature': {
-    image: denimJacketGoldResham,
-    alt: 'Denim jacket with a gold resham panel embroidered across the back',
+    image: sareeRedBanarasi,
+    alt: 'Red Kanchipuram silk saree draped over a carved stand, wide gold zari border',
     swatch: 'var(--linen-rose)',
   },
   '#craft': {
-    image: embroideryDetailMacro,
-    alt: 'Macro photograph of gold and green threadwork on linen',
+    image: zardoziMacroNavy,
+    alt: 'Macro photograph of gold zardozi and pearl clusters on navy silk',
     swatch: 'var(--linen)',
   },
   '#floor': {
-    image: ivoryAtelierJacket,
-    alt: 'Ivory linen jacket on a stand, cord and bullion embroidery across the front',
-    swatch: 'var(--linen-sage)',
+    image: bridalBlouseMaroonZardozi,
+    alt: 'Maroon bridal blouse on a hanger, gold zardozi and a pearl drop fringe',
+    swatch: 'var(--linen-rose)',
   },
 };
 

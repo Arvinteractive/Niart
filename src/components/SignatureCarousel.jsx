@@ -276,6 +276,26 @@ export function SignatureCarousel({ carRef, showPrices = true, reduced = false }
           </span>
         </div>
 
+        <div className="carousel__rail-group">
+        <div className="carousel__nav">
+          <button
+            className="carousel__arrow"
+            type="button"
+            onClick={() => step(-1)}
+            aria-label={`Previous piece — ${signaturePieces[(index - 1 + COUNT) % COUNT].title}`}
+          >
+            <span aria-hidden="true">&larr;</span>
+          </button>
+          <button
+            className="carousel__arrow"
+            type="button"
+            onClick={() => step(1)}
+            aria-label={`Next piece — ${signaturePieces[(index + 1) % COUNT].title}`}
+          >
+            <span aria-hidden="true">&rarr;</span>
+          </button>
+        </div>
+
         <div className="carousel__dots">
           {signaturePieces.map((piece, i) => (
             <button
@@ -290,8 +310,9 @@ export function SignatureCarousel({ carRef, showPrices = true, reduced = false }
             </button>
           ))}
           <span className="carousel__hint" aria-hidden="true">
-            Drag or arrow keys
+            Drag, arrows or keys
           </span>
+        </div>
         </div>
       </div>
     </section>

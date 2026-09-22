@@ -4,7 +4,7 @@
   position: relative;
   height: 340vh;
   background: var(--ink);
-  color: var(--paper);
+  color: #FFF;
 }
 
 .craft__stage {
@@ -31,12 +31,26 @@
 .craft__scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(26, 22, 19, .82) 0%,
-    rgba(26, 22, 19, .18) 46%,
-    rgba(26, 22, 19, .5) 100%
-  );
+  /* Two layers, because the photo underneath is bright gold on nearly every
+     pixel: the flat wash carries the scattered callouts, which sit anywhere in
+     the frame and have no scrim of their own, and the gradients sink the left
+     column and the top and bottom edges far enough for the title and body copy
+     to hold their contrast. */
+  background:
+    linear-gradient(
+      to right,
+      rgba(20, 17, 14, .72) 0%,
+      rgba(20, 17, 14, .46) 42%,
+      rgba(20, 17, 14, .26) 72%,
+      rgba(20, 17, 14, .34) 100%
+    ),
+    linear-gradient(
+      to top,
+      rgba(20, 17, 14, .6) 0%,
+      rgba(20, 17, 14, .22) 44%,
+      rgba(20, 17, 14, .52) 100%
+    ),
+    rgba(20, 17, 14, .34);
 }
 
 .craft__labels {
@@ -46,6 +60,8 @@
 
 .craft__label {
   position: absolute;
+  color: #FFF;
+  text-shadow: 0 1px 10px rgba(20, 17, 14, .85);
   left: var(--x);
   top: var(--y);
   display: flex;
@@ -70,11 +86,13 @@
 
 .craft__eyebrow {
   margin: 0 0 22px;
-  color: var(--gold);
+  color: #FFF;
 }
 
 .craft__title {
   margin: 0;
+  color: #FFF;
+  text-shadow: 0 2px 24px rgba(20, 17, 14, .6);
   font-family: var(--serif);
   font-weight: 300;
   font-size: clamp(40px, 8.6vw, 150px);
@@ -95,7 +113,8 @@
   margin: 0;
   font-size: 15.5px;
   line-height: 1.8;
-  color: rgba(245, 240, 232, .7);
+  color: #FFF;
+  text-shadow: 0 1px 12px rgba(20, 17, 14, .8);
 }
 
 /* Below 900px there is no scrub, so the pinned callouts are replaced by a
@@ -108,7 +127,7 @@
   font-size: 11px;
   letter-spacing: .18em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: #FFF;
 }
 
 @media (max-width: 900px) {

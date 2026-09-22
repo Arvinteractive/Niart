@@ -123,6 +123,49 @@
     var(--swatch);
 }
 
+/* Prev / next ---------------------------------------------------------------
+   The wheel, drag and arrow-key handlers were the only way through the deck,
+   and none of them announce themselves. The pair lives in the rail rather than
+   floating on the section's side gutters: at the shell's own max width there
+   is no gutter left, so edge-pinned buttons would land on the spec list at one
+   end and the photograph at the other. */
+.carousel__nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 18px;
+}
+
+.carousel__arrow {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 1px solid rgba(245, 240, 232, .3);
+  border-radius: 50%;
+  background: rgba(245, 240, 232, .05);
+  color: var(--paper);
+  font-size: 19px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background .35s var(--ease),
+    border-color .35s var(--ease),
+    color .35s var(--ease);
+}
+
+.carousel__arrow:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #151210;
+}
+
+.carousel__arrow:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
 /* Footer rail --------------------------------------------------------------- */
 .carousel__rail {
   position: absolute;
@@ -227,6 +270,15 @@
 @media (max-width: 760px) {
   .carousel {
     min-height: auto;
+  }
+
+  .carousel__arrow {
+    width: 50px;
+    font-size: 17px;
+  }
+
+  .carousel__dots {
+    display: none;
   }
 
   .carousel__figure {
