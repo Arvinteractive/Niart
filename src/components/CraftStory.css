@@ -11,7 +11,13 @@
   position: sticky;
   top: 0;
   height: 100svh;
+  /* `overflow` alone is not enough here: the photograph inside is promoted to
+     its own compositor layer by `will-change: transform`, and against a sticky
+     parent that clip can lag behind the scroll — the scaled image then paints
+     the band it overhangs by, unscrimmed, above the stage's top edge. Paint
+     containment states the clip in a way the compositor cannot skip. */
   overflow: hidden;
+  contain: paint;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -281,6 +281,20 @@
     display: none;
   }
 
+  /* The rail wraps to two rows once the arrows no longer fit beside the
+     label, and no fixed reservation in the grid above survives that — at
+     424px the wrapped rail was 122px against 112px reserved, so the label
+     sat on the last of the photograph. It joins the flow here instead and
+     reserves its own height. */
+  .carousel__rail {
+    position: static;
+    padding-top: 30px;
+  }
+
+  .carousel__grid {
+    padding-bottom: 0;
+  }
+
   .carousel__figure {
     height: 52vh;
   }

@@ -12,6 +12,11 @@
  * the source frame: the portrait shots sit in 3/4 and 4/5, the landscape ones
  * in 16/11. `wide` only does anything below 900px, where the stage collapses to
  * a two-column grid and a wide piece spans both.
+ *
+ * The four floor pieces are placed so none of them touch: each column of the
+ * stage carries one piece, and where two share a column (Poongodi above Nilaa)
+ * the vertical gap is wider than the two pieces' parallax ranges added
+ * together, so they cannot drift into each other at any scroll position.
  */
 import {
   addaFrameWorkshop,
@@ -54,7 +59,7 @@ export const floorPieces = [
     swatch: 'var(--linen-rose)',
     ratio: '3 / 4',
     wide: true,
-    position: { left: '6%', top: '7%', width: '39%', zIndex: 3 },
+    position: { left: '3%', top: '6%', width: '29%', zIndex: 3 },
     motion: { par: '-34', scale: '1' },
   },
   {
@@ -66,7 +71,7 @@ export const floorPieces = [
     imageAlt: 'Cream linen child’s dress on a hanger, wildflowers and butterflies embroidered across the yoke and hem',
     swatch: 'var(--linen-rose)',
     ratio: '4 / 5',
-    position: { left: '62%', top: '2%', width: '27%', zIndex: 2 },
+    position: { left: '38%', top: '0%', width: '21%', zIndex: 2 },
     motion: { par: '52' },
   },
   {
@@ -79,7 +84,7 @@ export const floorPieces = [
     swatch: 'var(--linen)',
     ratio: '16 / 11',
     wide: true,
-    position: { left: '41%', top: '47%', width: '31%', zIndex: 4 },
+    position: { left: '35%', top: '59%', width: '33%', zIndex: 4 },
     motion: { par: '-16' },
   },
   {
@@ -91,7 +96,7 @@ export const floorPieces = [
     imageAlt: 'Emerald green silk blouse on a carved hanger, gold temple-border zari with lotus motifs across the front and sleeves',
     swatch: 'var(--linen-sage)',
     ratio: '3 / 4',
-    position: { left: '72%', top: '30%', width: '24%', zIndex: 2 },
+    position: { left: '70%', top: '10%', width: '25%', zIndex: 2 },
     motion: { par: '76' },
   },
 ];
