@@ -4,14 +4,14 @@
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
 >
   <url>
-    <loc>https://niart.in/</loc>
-    <lastmod>2026-09-22</lastmod>
+    <loc>https://www.niart.in/</loc>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://niart.in/og-image.jpg</image:loc>
-      <image:title>Gold zardozi hand embroidery — NIART Designer Studio, Coimbatore</image:title>
-      <image:caption>Macro detail of gold zardozi worked by hand on silk at NIART Designer Studio in Coimbatore.</image:caption>
+      <image:loc>https://www.niart.in/og-image.jpg</image:loc>
+      <image:title>NIART Designer Studio — illustrative bridal designs</image:title>
+      <image:caption>NIART branding and AI-generated bridal design illustrations.</image:caption>
     </image:image>
   </url>
 </urlset>

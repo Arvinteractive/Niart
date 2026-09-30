@@ -17,8 +17,9 @@ export function CollectionWall({
     <section id="collection" ref={wallRef} className="wall" aria-labelledby="wall-title">
       <div className="shell wall__head">
         <h2 id="wall-title" className="wall__title" data-r>
-          Every piece in the collection, as it hangs in the studio
+          Ideas for your next occasion
         </h2>
+        <p className="wall__illustration" data-r>AI-generated design illustrations. Materials, pricing and availability are confirmed with the studio.</p>
       </div>
 
       <div className="stage shell wall__stage" data-stage>

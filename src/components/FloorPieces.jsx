@@ -25,11 +25,11 @@ export function FloorPieces() {
       <div className="shell">
         <div className="floor__head" data-r>
           <h2 id="floor-title" className="floor__title">
-            The pieces on the floor this month
+            Embroidery design studies
           </h2>
           <p className="floor__note">
-            Four in progress on the Coimbatore studio floor, photographed where they
-            hang. Hover a piece to read its file.
+            AI-generated illustrations of embroidery ideas. These are design
+            references; ask the studio about your own piece.
           </p>
         </div>
 

@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import niartMark from '../assets/niart-mark.png';
-import { CONTACT, localityLine, mailtoHref } from '../data/contact';
+import { CONTACT, enquiryHref, localityLine } from '../data/contact';
 import { navItems } from '../data/nav';
 import './Footer.css';
 
@@ -31,19 +31,18 @@ function CopyIcon() {
 }
 
 export function Footer({ reduced }) {
-  const [copied, setCopied] = useState(false);
+  const [copyStatus, setCopyStatus] = useState('');
   const threadRef = useRef(null);
   const copyTimer = useRef(null);
+  useEffect(() => () => window.clearTimeout(copyTimer.current), []);
 
   const handleCopyEmail = async () => {
     try {
       await navigator.clipboard.writeText(EMAIL);
+      setCopyStatus('Copied to clipboard');
     } catch {
-      // Clipboard API unavailable (older browser, insecure context) — the
-      // email link right beside this button still opens a mail client.
+      setCopyStatus('Unable to copy. Please select the email address.');
     }
-
-    setCopied(true);
 
     const thread = threadRef.current;
     if (thread && !reduced) {
@@ -54,7 +53,7 @@ export function Footer({ reduced }) {
     }
 
     window.clearTimeout(copyTimer.current);
-    copyTimer.current = window.setTimeout(() => setCopied(false), 1800);
+    copyTimer.current = window.setTimeout(() => setCopyStatus(''), 4000);
   };
 
   return (
@@ -107,7 +106,7 @@ export function Footer({ reduced }) {
               </li>
             ))}
             <li>
-              <a className="ftr__navlink" href={mailtoHref('Enquiry from niart.in')}>
+              <a className="ftr__navlink" href={enquiryHref({ subject: 'Enquiry from niart.in' })}>
                 Contact
               </a>
             </li>
@@ -134,22 +133,22 @@ export function Footer({ reduced }) {
         </div>
 
         <div className="ftr__col ftr__contact" data-r>
-          <span className="eyebrow ftr__col-label">Write to us</span>
+          <span className="eyebrow ftr__col-label">Enquiries</span>
           <div className="ftr__email-row">
-            <a className="ftr__email" href={mailtoHref('Enquiry from niart.in')}>
-              {EMAIL}
+            <a className="ftr__email" href={enquiryHref({ subject: 'Enquiry from niart.in' })}>
+              {EMAIL || 'Message on Instagram'}
             </a>
-            <button
+            {EMAIL && <button
               type="button"
               className="ftr__copy-btn"
               onClick={handleCopyEmail}
               aria-label="Copy email address"
             >
               <CopyIcon />
-            </button>
+            </button>}
           </div>
-          <span className={`ftr__copy-hint${copied ? ' ftr__copy-hint--visible' : ''}`} role="status">
-            Copied to clipboard
+          <span className={`ftr__copy-hint${copyStatus ? ' ftr__copy-hint--visible' : ''}`} role="status">
+            {copyStatus}
           </span>
           <address className="ftr__address">
             NIART Designer Studio

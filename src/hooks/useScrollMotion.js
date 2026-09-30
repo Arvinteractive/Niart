@@ -187,13 +187,18 @@ export function useScrollMotion({
     window.addEventListener('resize', onResize, { passive: true });
 
     // Re-measure once webfonts have settled and reflowed the page.
-    const settle = setTimeout(onResize, 300);
+    let disposed = false;
+    document.fonts?.ready.then(() => {
+      if (!disposed) onResize();
+    });
+    document.fonts?.addEventListener('loadingdone', onResize);
 
     return () => {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onResize);
       cancelAnimationFrame(frameId);
-      clearTimeout(settle);
+      disposed = true;
+      document.fonts?.removeEventListener('loadingdone', onResize);
     };
   }, [
     rootRef,

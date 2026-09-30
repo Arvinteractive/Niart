@@ -16,7 +16,7 @@ npm run lint
 
 | # | Section | File | Behaviour |
 |---|---------|------|-----------|
-| — | Header | `components/Header.jsx` + `HeaderMenu.jsx` | Fixed nav, transparent-over-hero → solid on scroll; full-screen menu with a focus trap |
+| — | Header | `components/Header.jsx` + `HeaderMenu.jsx` | Fixed nav, transparent-over-hero → solid on scroll; native modal menu with internal focus, background isolation and scrolling |
 | 1 | Hero | `components/Hero.jsx` | Line-by-line type reveal, image wipe, gold thread that sways with the cursor |
 | 2 | On the floor | `components/FloorPieces.jsx` | Scattered pieces, parallax drift, hover dims the siblings |
 | 3 | The detail file | `components/CraftStory.jsx` | Sticky 340vh track; the macro shot pulls back 2.5x → 1x as callouts scrub in |
@@ -40,7 +40,7 @@ src/
   data/pieces.js  all copy, placement and motion values
   data/nav.js     primary nav items (header + full-screen menu share this)
   data/contact.js the one place the studio's email/WhatsApp are configured
-  assets/         the studio photography + images.js barrel
+  assets/         the generated design illustrations + images.js barrel
   styles/         tokens, motion primitives, shared stage layout, legal/404 page styles
 design/           the original .dc.html source, kept for reference
 ```
@@ -48,7 +48,7 @@ design/           the original .dc.html source, kept for reference
 `NiartComponents` takes the three props the design exposed:
 
 ```jsx
-<NiartComponents showPrices parallax accent="#B08D57" />
+<NiartComponents showPrices={false} parallax accent="#B08D57" />
 ```
 
 ## Notes on the port
@@ -77,7 +77,7 @@ design/           the original .dc.html source, kept for reference
 - **Hover-dimming is gated behind `@media (hover: hover)`** so captions are
   readable on touch instead of waiting for a hover that never arrives.
 - **Photography travels as a CSS custom property.** `assets/images.js` re-exports
-  the seven studio shots as Vite-fingerprinted, WebP-encoded URLs; each piece in
+  the 13 illustrative images as Vite-fingerprinted, WebP-encoded URLs; each piece in
   `data/pieces.js` names one, and the component hands it down as `--image`. The
   design's woven-linen gradient stays underneath it as the second background
   layer, so a photo that has not decoded yet reads as fabric rather than a hole.
@@ -88,3 +88,25 @@ design/           the original .dc.html source, kept for reference
   nears the viewport (same pass that adds the `.in` reveal class), so the
   fetch is deferred until it's about to matter. Only the Hero image — the LCP
   candidate — stays eager.
+
+## Publishing
+
+Production is hosted on Vercel at https://www.niart.in/. The GitHub repository is
+Arvinteractive/Niart. Run the lint and production build before publishing; the build
+checks generated assets, contact fallback, metadata, notices and CSP script hashes.
+
+Preview the production output with npm run preview to exercise the production
+security headers. Vercel serves the branded 404 page for missing paths. Legal pages
+are separate static entries. No SPA rewrite should turn missing pages into a 200.
+
+Enquiries currently use the confirmed Instagram profile. Add email or WhatsApp to
+src/data/contact.js only after verification, then update the static legal pages
+and structured data to match. Prices are hidden pending confirmation. The images
+are generated illustrations; see design/asset-register.md for remaining owner checks.
+
+The CSP allows inline styles for the existing visual effects, but scripts must be
+local or explicitly hashed. If the static JSON-LD changes, recompute its SHA-256
+hash in vercel.json. Keep index.html line endings as LF so deployment hashes match.
+
+Node.js 24 is the build runtime. No secrets or hosting account configuration
+should be committed.

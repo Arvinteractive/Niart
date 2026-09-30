@@ -20,7 +20,7 @@ import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
  *   accent     — overrides the --gold token
  */
 export function NiartComponents({
-  showPrices = true,
+  showPrices = false,
   parallax = true,
   accent = '#B08D57',
 }) {
@@ -64,7 +64,7 @@ export function NiartComponents({
     <div ref={rootRef} style={{ background: 'var(--ivory)' }}>
       <Header reduced={reduced} />
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <Hero heroRef={heroRef} threadRef={threadRef} reduced={reduced} />
 
         <FloorPieces />

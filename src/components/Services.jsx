@@ -1,4 +1,4 @@
-import { CONTACT, mailtoHref } from '../data/contact';
+import { CONTACT, enquiryHref } from '../data/contact';
 import { services } from '../data/services';
 import { useMagnetic } from '../hooks/useMagnetic';
 import './Services.css';
@@ -34,8 +34,7 @@ export function Services({ reduced }) {
           <p className="svc__lede" data-r>
             NIART Designer Studio works to order. Bridal wear, aari and zardozi hand
             embroidery, ethnic and traditional outfits, kids’ wear and saree
-            pre-pleating — cut, embroidered and finished under one roof in Coimbatore,
-            Tamil Nadu.
+            pre-pleating. Discuss your design with the studio in Coimbatore, Tamil Nadu.
           </p>
         </div>
 
@@ -52,17 +51,16 @@ export function Services({ reduced }) {
 
         <div className="svc__foot" data-r>
           <p className="svc__foot-note">
-            Commissions open for the current season. Write with the date, the occasion
-            and a photograph of anything you have already bought.
+            Ask about commission availability with your date, occasion and design ideas.
           </p>
           <a
             ref={ctaRef}
             className="svc__cta"
             data-mag
             data-arrow
-            href={mailtoHref('Commission enquiry — NIART Designer Studio')}
+            href={enquiryHref({ subject: 'Commission enquiry — NIART Designer Studio' })}
           >
-            {CONTACT.email}{' '}
+            {CONTACT.email || 'Enquire on Instagram'}{' '}
             <span className="ar" aria-hidden="true">
               &rarr;
             </span>

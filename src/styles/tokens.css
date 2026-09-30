@@ -7,7 +7,8 @@
      large text (3:1). Only used where gold is the text color on a light
      ground — everywhere else (gold-on-ink, ink-on-gold buttons) already
      clears 4.5:1 and keeps --gold. */
-  --gold-deep: #8C6E42;
+  --gold-deep: #80613B;
+  --focus: #A17C46;
   --rose: #C9A9A0;
   --sage: #4A5A4C;
   --line: rgba(26, 22, 19, .14);
@@ -74,7 +75,7 @@ body {
    mark + its 1px rule), which is the state it is in for any real anchor jump.
    Any more and the section starts below the fold of its own top edge. */
 html {
-  scroll-padding-top: 71px;
+  scroll-padding-top: 81px;
 }
 
 body {
@@ -104,7 +105,7 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 3px solid var(--focus);
   outline-offset: 5px;
 }
 
@@ -130,3 +131,19 @@ figure {
   position: absolute;
   left: -9999px;
 }
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 300;
+  padding: 12px 20px;
+  color: var(--ink);
+  background: var(--ivory);
+  transform: translateY(-160%);
+}
+
+.skip-link:focus { transform: none; }
+
+.site-fallback { max-width: 720px; margin: 0 auto; padding: 80px 24px; }
+.site-fallback a { text-decoration: underline; }

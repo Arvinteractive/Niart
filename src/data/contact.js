@@ -1,18 +1,6 @@
-/**
- * NIART's real contact channel, address and social handles were never
- * confirmed for this launch — the only source for them was a design mockup,
- * and mockup content shouldn't be published as fact. Everything below is a
- * clearly-labelled placeholder so the site ships with a working, honest
- * contact path instead of an invented phone number or address.
- *
- * Before launch: set `email` to a real, monitored inbox on the production
- * domain (or replace this whole module with real details). Add `whatsapp`
- * (digits only, country code first, e.g. '91XXXXXXXXXX') once there is a
- * confirmed studio number — every CTA that can use WhatsApp will prefer it
- * automatically the moment it is set.
- */
+/** Confirmed studio channels only. Email, phone and street address stay empty until verified. */
 export const CONTACT = {
-  email: 'hello@niart.in',
+  email: '',
   whatsapp: '',
   addressLines: [],
   /* The city IS confirmed even though the street address is not, and it is
@@ -36,8 +24,9 @@ export const localityLine = [CONTACT.locality, CONTACT.region]
 
 const waDigits = (n) => n.replace(/[^0-9]/g, '');
 
-/** A `mailto:` link, optionally pre-filled — the always-available fallback. */
+/** A `mailto:` link, optionally pre-filled — available only when a verified inbox is configured. */
 export function mailtoHref(subject, body) {
+  if (!CONTACT.email) return null;
   const params = new URLSearchParams();
   if (subject) params.set('subject', subject);
   if (body) params.set('body', body);
@@ -54,7 +43,7 @@ export function whatsappHref(message) {
   return `https://wa.me/${digits}${params}`;
 }
 
-/** The best enquiry link available right now — WhatsApp if configured, otherwise email. */
+/** Only use confirmed channels: WhatsApp, email, then the studio's Instagram. */
 export function enquiryHref({ subject, body, whatsappMessage } = {}) {
-  return whatsappHref(whatsappMessage ?? body) ?? mailtoHref(subject, body);
+  return whatsappHref(whatsappMessage ?? body) ?? mailtoHref(subject, body) ?? CONTACT.instagram;
 }

@@ -1,4 +1,3 @@
-import { bg } from '../assets/images';
 import { heroImage } from '../data/pieces';
 import { usePointerThread } from '../hooks/usePointerThread';
 import { useMagnetic } from '../hooks/useMagnetic';
@@ -65,9 +64,8 @@ export function Hero({ heroRef, threadRef, reduced }) {
           </h1>
 
           <p className="hero__lede" data-r>
-            Six hundred hours on the adda frame in Coimbatore. Gold zardozi and aari
-            worked into raw Kanchipuram silk, one knot at a time, by four hands that
-            have done nothing else for eleven years.
+            Bridal wear and custom outfits from Coimbatore. Explore aari and
+            zardozi embroidery, with fabric, detail and fit planned around your occasion.
           </p>
 
           <div className="hero__actions" data-r>
@@ -85,15 +83,19 @@ export function Hero({ heroRef, threadRef, reduced }) {
 
         <figure className="hero__figure" data-mask data-zoom data-r>
           <span className="mi hero__mask">
-            <span
+            <img
               className="zi hero__image"
-              role="img"
-              aria-label={heroImage.alt}
-              style={{ '--image': bg(heroImage.src) }}
+              src={heroImage.src}
+              alt={heroImage.alt}
+              width="1122"
+              height="1402"
+              fetchPriority="high"
+              loading="eager"
+              decoding="async"
             />
           </span>
           <figcaption className="hero__caption">
-            Anaikatti bridal lehenga — 620 hrs on the adda frame
+            Bridal design study · AI-generated illustration
           </figcaption>
         </figure>
       </div>

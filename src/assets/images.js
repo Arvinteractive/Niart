@@ -1,5 +1,5 @@
 /**
- * The studio photography.
+ * AI-generated design illustrations.
  *
  * Imported rather than referenced by path so Vite fingerprints and copies them;
  * every consumer hands the URL to CSS as `--image`, which layers over the linen

@@ -2,7 +2,16 @@
   position: fixed;
   inset: 0;
   z-index: 150;
-  display: flex;
+  display: none;
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   flex-direction: column;
   background: var(--ink);
   color: var(--paper);
@@ -10,6 +19,13 @@
   visibility: hidden;
   transition: opacity .55s var(--ease), visibility 0s linear .55s;
 }
+
+.hmenu[open] { display: flex; }
+.hmenu::backdrop { background: var(--ink); }
+.hmenu__top { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; padding-top: 24px; padding-bottom: 16px; }
+.hmenu__brand { font-family: var(--wordmark); font-size: 28px; letter-spacing: .1em; }
+.hmenu__close { min-height: 44px; padding: 8px 12px; color: var(--paper); border: 1px solid var(--gold); background: transparent; }
+.hmenu__close span { margin-left: 12px; font-size: 24px; }
 
 .hmenu--open {
   opacity: 1;
@@ -28,13 +44,13 @@
 .hmenu__inner {
   position: relative;
   z-index: 1;
-  flex: 1;
+  flex: 1 0 auto;
   display: grid;
   grid-template-columns: 1.15fr 1fr;
   align-items: center;
   gap: clamp(32px, 6vw, 100px);
   /* Clears the header bar, which now stays on top of the overlay. */
-  padding-top: clamp(112px, 14vh, 150px);
+  padding-top: clamp(24px, 4vh, 60px);
   padding-bottom: clamp(40px, 6vh, 70px);
 }
 
@@ -152,7 +168,7 @@
 @media (max-width: 900px) {
   .hmenu__inner {
     grid-template-columns: 1fr;
-    padding-top: clamp(100px, 16vh, 136px);
+    padding-top: 24px;
   }
 
   .hmenu__stage {

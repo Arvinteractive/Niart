@@ -29,7 +29,7 @@ function SlideCta({ reduced, piece }) {
   );
 }
 
-export function SignatureCarousel({ carRef, showPrices = true, reduced = false }) {
+export function SignatureCarousel({ carRef, showPrices = false, reduced = false }) {
   const [{ index, dir }, setSlide] = useState({ index: 0, dir: 1 });
   const [dragging, setDragging] = useState(false);
 
@@ -220,6 +220,10 @@ export function SignatureCarousel({ carRef, showPrices = true, reduced = false }
             }}
             className={`carousel__slide${i === 0 ? ' carousel__slide--initial live' : ''}`}
             data-slide
+            aria-hidden={i !== index}
+            inert={i !== index}
+            aria-roledescription="slide"
+            aria-label={`${i + 1} of ${COUNT}`}
           >
             <div className="carousel__grid">
               <div className="scopy carousel__copy">
@@ -229,11 +233,11 @@ export function SignatureCarousel({ carRef, showPrices = true, reduced = false }
                 <h3 className="cl carousel__title">{piece.title}</h3>
 
                 <dl className="cl carousel__spec">
-                  <dt>Collection</dt>
+                  <dt>Design study</dt>
                   <dd>{piece.collection}</dd>
-                  <dt>Material</dt>
+                  <dt>Material inspiration</dt>
                   <dd>{piece.material}</dd>
-                  {showPrices && (
+                  {showPrices && piece.price && (
                     <>
                       <dt>From</dt>
                       <dd>{piece.price}</dd>
@@ -242,6 +246,7 @@ export function SignatureCarousel({ carRef, showPrices = true, reduced = false }
                 </dl>
 
                 <SlideCta reduced={reduced} piece={piece} />
+                <p className="cl carousel__illustration">AI-generated design illustration. Ask us about materials and availability.</p>
               </div>
 
               <figure

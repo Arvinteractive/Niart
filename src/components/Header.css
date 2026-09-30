@@ -23,9 +23,7 @@
 
 /* A woven-linen flash that appears once as the header settles in, then
    disappears — never seen again after the entrance. */
-/* While the menu is open the header climbs above the overlay (z 150) and
-   drops its own surface, so the burger never moves or changes colour context
-   — it is the same button in the same place, morphing to an X. */
+/* The native dialog covers the header while the menu is open. */
 .hdr--menu-open {
   z-index: 200;
   color: var(--paper);
@@ -36,22 +34,11 @@
   transition: background-color .25s var(--ease), border-color .25s var(--ease);
 }
 
-/* Everything except the brand and the burger steps aside for the overlay's
-   own big navigation. The burger is the last child of a flex-end row, so
-   dropping its siblings leaves it exactly where it was. */
-.hdr--menu-open .hdr__search,
-.hdr--menu-open .hdr__icon-btn--bag,
 .hdr--menu-open .hdr__thread,
 .hdr--menu-open .hdr__texture {
   display: none;
 }
 
-/* The overlay is rendered inside <header>, so the header's own z-index does
-   not separate them: the bar has to out-stack the overlay (150) from inside
-   the same stacking context. */
-.hdr--menu-open .hdr__bar {
-  z-index: 200;
-}
 
 /* The nav hides but keeps its grid column: `display: none` would take a
    grid item out of the bar's `1fr auto 1fr`, and the actions — burger and
@@ -228,78 +215,17 @@
   gap: 22px;
 }
 
-.hdr__icon-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: none;
-  border: none;
-  padding: 6px;
-  margin: -6px;
-  color: inherit;
-}
-
-.hdr__icon-btn svg {
-  display: block;
-  width: 18px;
-  height: 18px;
-}
-
-.hdr__bag-count {
-  font-size: 10.5px;
-  letter-spacing: .06em;
-  opacity: .7;
-}
-
-.hdr__search {
-  display: flex;
-  align-items: center;
-}
-
-.hdr__search-form {
-  max-width: 0;
-  overflow: hidden;
-  transition: max-width .45s var(--ease);
-}
-
-.hdr__search--open .hdr__search-form {
-  max-width: 220px;
-  margin-right: 14px;
-}
-
-.hdr__search-input {
-  width: clamp(140px, 16vw, 220px);
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid currentColor;
-  opacity: .55;
-  color: inherit;
-  font: inherit;
-  font-size: 13px;
-  padding: 4px 2px;
-}
-
-.hdr__search-input:focus {
-  outline: none;
-  opacity: 1;
-}
-
-.hdr__search-input::placeholder {
-  color: currentColor;
-  opacity: .55;
-}
-
 /* Burger ------------------------------------------------------------- */
 .hdr__burger {
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
   gap: 6px;
-  width: 30px;
-  height: 24px;
+  width: 44px;
+  height: 44px;
   background: none;
   border: none;
-  padding: 0;
+  padding: 10px 7px;
   color: inherit;
 }
 
@@ -348,10 +274,6 @@
     padding-block: 22px;
   }
 
-  .hdr__search,
-  .hdr__icon-btn--bag {
-    display: none;
-  }
 }
 
 @media (max-width: 430px) {

@@ -58,13 +58,13 @@ export function CraftStory({
 
           <div ref={craftCopyRef} className="craft__copy" data-lab>
             <p>
-              A zardozi knot is 1.2mm across. There are roughly forty thousand of them
-              on a Niart bridal hem, and every one is pulled to the same tension by
-              hand — aari, kamdani or gold work, the tension is the whole discipline.
+              The character of embroidery comes from the thread, the stitch and
+              the fabric together. Aari, zardozi and kamdani bring different textures
+              to a design; the studio can help you choose the detail for your piece.
             </p>
             <p>
-              Machines can copy the pattern. They cannot copy the tension, and that is
-              what you see from across a room.
+              Detail shown here is an AI-generated illustration of embroidery,
+              rather than a photograph of a completed studio commission.
             </p>
           </div>
         </div>

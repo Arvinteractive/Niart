@@ -303,3 +303,5 @@
     font-size: 44px;
   }
 }
+
+.carousel__illustration { max-width: 36ch; color: rgba(245,240,232,.76); font-size: 12px; line-height: 1.6; margin-top: 24px; }
