@@ -264,7 +264,7 @@
 .hdr__navlink:nth-child(4) { transition-delay: .74s; }
 .hdr__actions { transition-delay: .85s; }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .hdr__nav {
     display: none;
   }

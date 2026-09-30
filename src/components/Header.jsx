@@ -55,7 +55,7 @@ export function Header({ reduced }) {
           <img className="hdr__mark" src={niartMark} alt="" width="256" height="256" />
           <span className="hdr__brand-text">
             <span className="hdr__word">NIART</span>
-            <span className="hdr__est">Designer Studio · Coimbatore</span>
+            <span className="hdr__est">Coimbatore</span>
           </span>
         </a>
 
