@@ -76,6 +76,7 @@ body {
    Any more and the section starts below the fold of its own top edge. */
 html {
   scroll-padding-top: 81px;
+  scrollbar-gutter: stable;
 }
 
 body {

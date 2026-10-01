@@ -44,7 +44,7 @@ export function Header({ reduced }) {
       </svg>
 
       <div className="shell hdr__bar">
-        <HeaderBrand />
+        <HeaderBrand revealed />
 
         <nav className="hdr__nav" aria-label="Primary">
           {navItems.map((item) => (
@@ -60,7 +60,7 @@ export function Header({ reduced }) {
           ))}
         </nav>
 
-        <div className="hdr__actions" data-r>
+        <div className="hdr__actions">
           <MenuToggle buttonRef={burgerRef} active={false} expanded={menuOpen} onClick={toggleMenu} />
         </div>
       </div>
