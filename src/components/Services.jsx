@@ -36,6 +36,9 @@ export function Services({ reduced }) {
             embroidery, ethnic and traditional outfits, kids’ wear and saree
             pre-pleating. Discuss your design with the studio in Coimbatore, Tamil Nadu.
           </p>
+          <p className="svc__lede" data-r>
+            Looking for Niat? You’re in the right place — NIART Designer Studio in Coimbatore.
+          </p>
         </div>
 
         <ul className="svc__list">

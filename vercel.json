@@ -25,7 +25,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'sha256-7seKF8S2Sua5Iwa5WegEeW2lSYeKW7BrZsnGaVIiWMA='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'; upgrade-insecure-requests"
+          "value": "default-src 'self'; script-src 'self' 'sha256-Yu1GCnmMEt5kZlw3+8NZsS6AzoXcU1smoYT702b3Vkc='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'; upgrade-insecure-requests"
         }
       ]
     },
@@ -39,7 +39,7 @@
       ]
     },
     {
-      "source": "/(favicon.png|site.webmanifest|og-image.jpg|robots.txt|sitemap.xml)",
+      "source": "/(favicon.ico|favicon.png|apple-touch-icon.png|site.webmanifest|og-image.jpg|robots.txt|sitemap.xml)",
       "headers": [
         {
           "key": "Cache-Control",
