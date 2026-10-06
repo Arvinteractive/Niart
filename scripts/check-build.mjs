@@ -24,7 +24,7 @@ const graph = JSON.parse(home.match(/<script type="application\/ld\+json">([\s\S
 const studio = graph['@graph'].find((item) => item.name === 'NIART Designer Studio' && item.address);
 assert(!studio.geo && !studio.email, 'Unverified studio coordinates and email must not ship.');
 assert(studio.sameAs.includes('https://www.instagram.com/niart_designerstudio/'));
-assert(home.includes('Contact the studio on Instagram'), 'Failed bundle loads need a working contact fallback.');
+assert(/<noscript>[\s\S]*Contact the studio on Instagram[\s\S]*<\/noscript>/.test(home), 'The contact fallback must only display when JavaScript is disabled.');
 assert(/rel="preload"[^>]*as="image"/.test(home), 'The hero image must be discoverable in the HTML.');
 assert(read('dist/robots.txt').includes('https://www.niart.in/sitemap.xml'));
 assert(read('dist/sitemap.xml').includes('<loc>https://www.niart.in/</loc>'));
