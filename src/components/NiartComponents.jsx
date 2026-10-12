@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Header } from './Header';
 import { Hero } from './Hero';
+import { FeaturedWork } from './FeaturedWork';
 import { FloorPieces } from './FloorPieces';
 import { CraftStory } from './CraftStory';
 import { Services } from './Services';
@@ -66,6 +67,8 @@ export function NiartComponents({
 
       <main id="main-content" tabIndex={-1}>
         <Hero heroRef={heroRef} threadRef={threadRef} reduced={reduced} />
+
+        <FeaturedWork />
 
         <FloorPieces />
 

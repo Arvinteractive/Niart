@@ -69,7 +69,7 @@ export function Hero({ heroRef, threadRef, reduced }) {
           </p>
 
           <div className="hero__actions" data-r>
-            <a ref={ctaRef} className="hero__cta" data-mag data-arrow href="#signature">
+            <a ref={ctaRef} className="hero__cta" data-mag data-arrow href="#featured-work">
               See the piece{' '}
               <span className="ar" aria-hidden="true">
                 &rarr;

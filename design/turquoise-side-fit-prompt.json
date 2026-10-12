@@ -1,0 +1,6 @@
+{
+  "mode": "built-in image_gen",
+  "source": "output/imagegen/turquoise-bloom/left.png",
+  "generatedSource": "C:\\Users\\Aravind\\.codex\\generated_images\\01a125ee-6ac0-73d3-b50b-af5bddb9f3e8\\exec-a53893fa-f61f-48a6-a219-82f17bd561dd.png",
+  "prompt": "Use case: precise-object-edit. Edit the provided product photograph with ONE highly localized tailoring correction only: remove the loose baggy fabric and puckered/raised fold in the plain turquoise front bust panel at image left, just in front of the embroidered sleeve, especially the fold from the upper horizontal bust seam down the curved princess seam. Make this plain panel smoothly and neatly fitted to the existing mannequin bust, removing the outward baggy bulge/excess fabric. Keep the natural mannequin body shape and bust proportions. Preserve the curved princess seam and upper seam, simply make them lie flat with gentle natural tension. Everything outside this small plain bust panel must remain identical: EXACT sleeve embroidery motif positions, beads, gold and pearl trims, pink cuff fringe, back bead fringe, sleeve silhouette, neckline, waist, mannequin, camera angle, crop, beige background, lighting, turquoise color and fabric weave. Do not redesign the garment, alter embroidery or change viewpoint. Keep original landscape dimensions and composition. No text."
+}
