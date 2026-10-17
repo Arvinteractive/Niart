@@ -8,6 +8,7 @@ import { Services } from './Services';
 import { SignatureCarousel } from './SignatureCarousel';
 import { CollectionWall } from './CollectionWall';
 import { Footer } from './Footer';
+import { VisitUs } from './VisitUs';
 import { useReveal } from '../hooks/useReveal';
 import { useScrollMotion } from '../hooks/useScrollMotion';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
@@ -96,6 +97,7 @@ export function NiartComponents({
           finalCtaRef={finalCtaRef}
           reduced={reduced}
         />
+        <VisitUs />
       </main>
 
       <Footer reduced={reduced} />

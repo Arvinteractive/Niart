@@ -1,13 +1,12 @@
-/** Confirmed studio channels only. Email, phone and street address stay empty until verified. */
+/** Studio address and channels confirmed by the owner. */
 export const CONTACT = {
   email: '',
   whatsapp: '',
-  addressLines: [],
-  /* The city IS confirmed even though the street address is not, and it is
-     the single most valuable fact on the page for search: "embroidery in
-     Coimbatore" is the query this studio has to win. It is printed in the
-     footer and mirrored in the LocalBusiness JSON-LD in index.html — keep the
-     two in step. */
+  addressLines: [
+    'Prithivee complex, 167, second floor',
+    'Sathy Main Road, Ganapathy',
+    'Coimbatore, Tamil Nadu 641006',
+  ],
   locality: 'Coimbatore',
   region: 'Tamil Nadu',
   country: 'India',

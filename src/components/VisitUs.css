@@ -1,0 +1,31 @@
+.visit {
+  padding: clamp(64px, 8vw, 112px) 0;
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+}
+
+.visit__title {
+  margin: 0 0 clamp(28px, 4vw, 48px);
+  text-align: center;
+  font-family: var(--serif);
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -.015em;
+}
+
+.visit__map {
+  display: block;
+  width: 100%;
+  height: clamp(320px, 42vw, 480px);
+  border: 1px solid var(--line);
+  background: var(--ivory);
+}
+
+.visit__address {
+  margin-top: 20px;
+  font-size: 14px;
+  font-style: normal;
+  line-height: 1.8;
+  color: var(--muted);
+}
